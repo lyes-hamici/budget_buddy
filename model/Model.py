@@ -4,3 +4,8 @@
 
 #self.user = User()
 #self.user.get_user()
+
+class Model:
+    def __init__(self):
+        pass
+    
