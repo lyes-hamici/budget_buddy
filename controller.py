@@ -1,10 +1,10 @@
-import view
-import model
+from .view import Window
+from .model import Model
 
 class Controller:
-    def __init__(self, model, view):
-        self.model = model
-        self.view = view
+    def __init__(self):
+        self.model = Model()
+        self.view = Window()
 
     """
     Exemple of use of the controller : 
