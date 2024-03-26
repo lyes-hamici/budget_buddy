@@ -1,1 +1,1 @@
-from .FinancialView import FinancialView
+from .Window import Window
