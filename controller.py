@@ -1,10 +1,14 @@
-from .view import Window
-from .model import Model
+from view import Window
+from model import Model
 
 class Controller:
     def __init__(self):
         self.model = Model()
         self.view = Window()
+
+    def main(self):
+        self.view.mainloop()
+    
 
     """
     Exemple of use of the controller : 
