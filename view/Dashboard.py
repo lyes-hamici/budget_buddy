@@ -9,15 +9,15 @@ class Dashboard(CTkFrame):
         self.create_widgets()
     
     def create_widgets(self):
-        frame = CTkFrame(master=self, fg_color="red", bg_color='blue', width=300, corner_radius=0)
+        frame = CTkFrame(master=self, fg_color="azure3", corner_radius=0)
         frame.pack(expand=True, fill=ctk.Y, anchor=ctk.W)
         
-        home_button = CTkButton(master=frame, text="Home", width=50,bg_color='white', fg_color='black', border_width=1)
-        account_button = CTkButton(master=frame, text="Account", width=50)
-        graphics_button = CTkButton(master=frame, text="Graphics",width=50)
-        logout_button = CTkButton(master=frame, text="Logout",width=50)
+        home_button = CTkButton(master=frame, text="Home",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30)
+        account_button = CTkButton(master=frame, text="Account",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30)
+        graphics_button = CTkButton(master=frame, text="Graphics",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30)
+        logout_button = CTkButton(master=frame, text="Logout",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30)
         
-        home_button.pack(fill=ctk.X, expand=True)
-        account_button.pack(fill=ctk.X, expand=True)
-        graphics_button.pack(fill=ctk.X, expand=True)
-        logout_button.pack(fill=ctk.X, expand=True)
+        home_button.pack(expand = True,padx = 5)
+        account_button.pack(expand = True,padx = 5)
+        graphics_button.pack(expand = True,padx = 5)
+        logout_button.pack(expand = True,padx = 5)
