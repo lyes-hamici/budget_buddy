@@ -2,14 +2,22 @@ import customtkinter as ctk
 
 
 class LoginFrame(ctk.CTkFrame):
+    '''
+    This class is the login frame of the application. It is the first frame displayed to the user when he launches the application.
+    '''
     def __init__(self, master):
         super().__init__(master)
         self.value_name = ctk.StringVar()
         self.value_password = ctk.StringVar()
         self.value_remember_me = ctk.BooleanVar()
+        self.running = True
         self._create_widgets()
 
     def _create_widgets(self):
+            '''
+            This method creates the widgets of the login frame.
+            It creates a frame, a label, an entry for the user, an entry for the password, a login button, a checkbox for remember me and a register button.
+            '''
             frame = ctk.CTkFrame(master=self, width=1482, height=834, corner_radius=45)
             frame.pack(pady=40, padx=300, fill='both', expand=False, side="top", anchor="center")
             
@@ -28,32 +36,13 @@ class LoginFrame(ctk.CTkFrame):
             self.remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me', variable=self.value_remember_me, onvalue=True, offvalue=False)
             self.remember_checkbox.pack(pady=12, padx=10)
 
-            register_button = ctk.CTkButton(master=frame, text='Register', command=self.go_to_registerPage)
+            register_button = ctk.CTkButton(master=frame, text='Register', command=self.on_register_button_click)
             register_button.pack(pady=12, padx=10)
 
     #new def until this point
             
     def on_login_button_click(self):
-        self.master.login()
+        self.master.set_value_display_page(3)
     
     def on_register_button_click(self):
         self.master.set_value_display_page(2)
-    #old def until this point need to see if it is still useful
-        
-
-    def get_is_button_clicked(self):
-        return self.is_button_clicked
-    
-
-    def go_to_registerPage(self):
-        self.login_status = False
-        self.is_button_clicked = True
-        self.master.displayRegisterPage()
-        # Handle further actions here
-
-
-    def get_login_status(self):
-        return self.login_status
-
-    def set_login_status(self, status):
-        self.login_status = status
