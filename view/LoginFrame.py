@@ -6,16 +6,17 @@ class LoginFrame(ctk.CTkFrame):
         super().__init__(master)
         self.value_name = ctk.StringVar()
         self.value_password = ctk.StringVar()
-        self.value_remember_me = ctk.BooleanVar(value=self.master.get_remember_me_state())
+        self.value_remember_me = """ctk.BooleanVar(value=self.master.get_remember_me_state())"""
         self.login_status = True
         self.is_button_clicked = False
+        self.register_is_clicked = False
         self._create_widgets()
 
     def _create_widgets(self):
             frame = ctk.CTkFrame(master=self, width=1482, height=834, corner_radius=45)
             frame.pack(pady=40, padx=300, fill='both', expand=False, side="top", anchor="center")
             
-            label = ctk.CTkLabel(master=frame, text='HARMONY', font=('helvetica', 64))
+            label = ctk.CTkLabel(master=frame, text='BUDGET BUDDY', font=('helvetica', 64))
             label.pack(pady=12, padx=10)
 
             self.user_entry = ctk.CTkEntry(master=frame, placeholder_text="Pseudo/mail", textvariable=self.value_name)
@@ -27,10 +28,10 @@ class LoginFrame(ctk.CTkFrame):
             login_button = ctk.CTkButton(master=frame, text='Login', command=self.on_login_button_click)   
             login_button.pack(pady=12, padx=10)
 
-            self.remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me', variable=self.value_remember_me, onvalue=True, offvalue=False)
-            self.remember_checkbox.pack(pady=12, padx=10)
+            """self.remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me', variable=self.value_remember_me, onvalue=True, offvalue=False)
+            self.remember_checkbox.pack(pady=12, padx=10)"""
 
-            register_button = ctk.CTkButton(master=frame, text='Register', command=self.go_to_registerPage)
+            register_button = ctk.CTkButton(master=frame, text='Register', command=self.on_click_register)
             register_button.pack(pady=12, padx=10)
 
     #new def until this point
@@ -40,15 +41,18 @@ class LoginFrame(ctk.CTkFrame):
             
     #old def until this point need to see if it is still useful
         
+    def get_register_is_clicked(self):
+        return self.register_is_clicked
+        
 
     def get_is_button_clicked(self):
         return self.is_button_clicked
     
 
-    def go_to_registerPage(self):
-        self.login_status = False
-        self.is_button_clicked = True
-        self.master.displayRegisterPage()
+    def on_click_register(self):
+        print("Register button clicked")
+        self.register_is_clicked = True
+
         # Handle further actions here
 
 

@@ -4,11 +4,15 @@ from model import Model
 class Controller:
     def __init__(self):
         self.model = Model()
-        self.view = Window()
+        self.view = Window(self)
 
     def main(self):
         self.view.mainloop()
+        
+        if self.view.login_frame.get_register_is_clicked():
+            self.view.displayRegisterPage()
     
+
 
     """
     Exemple of use of the controller : 
