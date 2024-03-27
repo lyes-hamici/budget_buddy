@@ -6,19 +6,17 @@ class LoginFrame(ctk.CTkFrame):
         super().__init__(master)
         self.value_name = ctk.StringVar()
         self.value_password = ctk.StringVar()
-        self.value_remember_me = ctk.BooleanVar(value=self.master.get_remember_me_state())
-        self.login_status = True
-        self.is_button_clicked = False
+        self.value_remember_me = ctk.BooleanVar()
         self._create_widgets()
 
     def _create_widgets(self):
             frame = ctk.CTkFrame(master=self, width=1482, height=834, corner_radius=45)
             frame.pack(pady=40, padx=300, fill='both', expand=False, side="top", anchor="center")
             
-            label = ctk.CTkLabel(master=frame, text='HARMONY', font=('helvetica', 64))
+            label = ctk.CTkLabel(master=frame, text='BUDGET BUDDY', font=('helvetica', 64))
             label.pack(pady=12, padx=10)
 
-            self.user_entry = ctk.CTkEntry(master=frame, placeholder_text="Pseudo/mail", textvariable=self.value_name)
+            self.user_entry = ctk.CTkEntry(master=frame, placeholder_text="Pseudo/mail", textvariable=self.value_name, text_color='white')
             self.user_entry.pack(pady=12, padx=10)
 
             self.user_pass = ctk.CTkEntry(master=frame, placeholder_text="mot de passe", textvariable=self.value_password , show="*")
@@ -37,7 +35,9 @@ class LoginFrame(ctk.CTkFrame):
             
     def on_login_button_click(self):
         self.master.login()
-            
+    
+    def on_register_button_click(self):
+        self.master.set_value_display_page(2)
     #old def until this point need to see if it is still useful
         
 
