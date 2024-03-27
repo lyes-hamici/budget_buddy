@@ -1,7 +1,7 @@
 import customtkinter as ctk
-from Home import Home
-from Account import Account
-from Dashboard import Dashboard
+from view import Home
+from view import Account
+from view import Dashboard
 
 class Window(ctk.CTk):
     def __init__(self):
