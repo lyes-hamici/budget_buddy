@@ -21,9 +21,6 @@ class Controller:
                 self.change_display()
             time.sleep(0.1)
 
-    
-   
-    
     def change_display(self):
             if self.view.value_display_page == 1:
                 self.view.displayLoginPage()
@@ -34,8 +31,6 @@ class Controller:
 
 
     def main(self):
-        controller_thread = threading.Thread(target=self.controller_loop)
-        controller_thread.start()
         self.view.mainloop()
     
     def controller_loop(self):
