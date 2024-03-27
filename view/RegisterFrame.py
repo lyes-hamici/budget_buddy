@@ -7,7 +7,7 @@ class RegisterFrame(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         
-        self.click_validation = False
+        self.running = True
         self.value_name = ctk.StringVar()
         self.value_firstname = ctk.StringVar()
         self.value_password = ctk.StringVar()
@@ -45,7 +45,7 @@ class RegisterFrame(ctk.CTkFrame):
         validation_button.pack(pady=12, padx=10)
 
 
-        quit_button = CTkButton(master=frame, text="Go back", command=self.disconnect)
+        quit_button = CTkButton(master=frame, text="Go back", command=self.on_go_back)
         quit_button.pack(pady=12, padx=10)
         
     # to this point new methods
@@ -53,10 +53,5 @@ class RegisterFrame(ctk.CTkFrame):
     def on_click_validation(self):
         self.master.register_new_user()
     
-
-
-    def disconnect(self):
-        self.master.register_page.pack_forget()
-        self.master.displayLoginScreen()
-
-    # Handle further actions here
+    def on_go_back(self):
+        self.master.set_value_display_page(1)
