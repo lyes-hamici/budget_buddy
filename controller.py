@@ -1,4 +1,3 @@
-import threading
 from view import Window
 from model import Transaction_repository, User_repository
 from services import Db
@@ -21,6 +20,9 @@ class Controller:
                 self.change_display()
             time.sleep(0.1)
 
+    
+   
+    
     def change_display(self):
             if self.view.value_display_page == 1:
                 self.view.displayLoginPage()
@@ -32,10 +34,3 @@ class Controller:
 
     def main(self):
         self.view.mainloop()
-    
-    def controller_loop(self):
-        pass
-        
-if __name__ == "__main__":
-    controller = Controller()
-    controller.main()
