@@ -6,7 +6,7 @@ from Dashboard import Dashboard
 class Window(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Tkinter MVC")
+        self.title("Hess d'epargne")
         self.geometry("1280x720")
         self.minsize(1280, 720)
         self.maxsize(1280, 720)
