@@ -9,7 +9,7 @@ class Account(CTkFrame):
         self.create_widgets()
 
     def create_widgets(self):
-        frame = CTkFrame(master=self, fg_color="blueviolet",  width=700)
+        frame = CTkFrame(master=self, fg_color="mediumpurple1",  width=700)
         frame.pack(expand=False, side=ctk.TOP,fill = ctk.X)
 
 
