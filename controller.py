@@ -9,7 +9,7 @@ class Controller:
     def __init__(self):
         self.db = Db()
         self.Transaction_repository = Transaction_repository(self.db)
-        self.User_repository = User_repository()
+        self.User_repository = User_repository(self.db)
         self.view = Window()
         self.old_value_display_page = 0
         self.thread = threading.Thread(target=self.observer)
@@ -25,6 +25,8 @@ class Controller:
                 self.forget_display()
                 self.change_display()
             time.sleep(0.1)
+            
+            self.view.set_balance(self.Transaction_repository.calculate_balance(1))
 
     
    
