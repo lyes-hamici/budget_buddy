@@ -3,11 +3,16 @@ from model import Transaction
 class Transaction_repository:
     def __init__(self,db):
         self.db = db
-    
-    #================SETTERS & GETTERS=======================#
+    #=================SETTERS=======================#
+    def create_transaction(self, user_id, name, description, amount, category_id, type, date):
+        """
+        Creates a transaction in the database.
+        Params: user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, type: The type of the transaction, date: The date of the transaction
+        """
+        query = "INSERT INTO transaction (user_id, name, description, amount, category_id, type, date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        self.db.query(query, (user_id, name, description, amount, category_id, type, date))
+        
     #=================GETTERS=======================#
-    
-            #======Transactions======#
     def get_all_transactions_of_user(self, user_id):
         """
         Retrieves all transactions of a specific user from the database.
