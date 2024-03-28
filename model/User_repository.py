@@ -3,8 +3,8 @@ from model import User
 class User_repository:
     def __init__(self, db):
         self.db = db
-    
-        
+
+#================VERIFIERS=======================#        
     def verify_if_exist(self, email):
         """
         Verifies if an user exist in the database+.
@@ -25,7 +25,7 @@ class User_repository:
             query = "SELECT id FROM user WHERE email = %s AND password = %s"
             response = self.db.query(query, (email, password))
             return len(response) > 0
-    
+#================GETTERS=======================#
     def get_user(self, email):
         """
         Get the user from the database.
@@ -35,16 +35,8 @@ class User_repository:
         query = "SELECT * FROM user WHERE email = %s"
         response = self.db.query(query, (email,))
         return User(*response[0])
-    
-    def connect_user(self, email, password):
-        """
-        Connect the user to the application.
-        Params: the email and password of the user.
-        Returns: an User object if the credentials are correct, None if not.
-        """
-        if self.verify_if_correct(email, password):
-            return self.get_user(email)
-        
+
+#================SETTERS=======================# 
     def create_user(self, name, lastname, email, password):
         """
         Create an user in the database.
@@ -57,5 +49,15 @@ class User_repository:
             return True
         else:
             return False
+#================AUTHENTICATION=======================#
+    def connect_user(self, email, password):
+        """
+        Connect the user to the application.
+        Params: the email and password of the user.
+        Returns: an User object if the credentials are correct, None if not.
+        """
+        if self.verify_if_correct(email, password):
+            return self.get_user(email)
+        
     
     
