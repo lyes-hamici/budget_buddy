@@ -52,6 +52,7 @@ class Controller:
                     self.view.displayLoginPage()
                     self.set_old_value_display_page(1)
                     self.view.set_value_display_page(0)
+                    
             if self.view.value_display_page == 4:
                 self.view.display_account_page()
                 self.set_old_value_display_page(4)
@@ -81,13 +82,19 @@ class Controller:
 
     def login(self):
         self.get_entry_values_from_login_page()
-        if self.User_repository.verify_if_exist(self.view.value_mail):
+        self.user = self.User_repository.connect_user(self.view.value_mail, self.view.value_password)
+        if self.user:
+            return True
+        else:
+            return False
+        
+        """if self.User_repository.verify_if_exist(self.view.value_mail):
             if self.User_repository.verify_if_correct(self.view.value_mail, self.view.value_password):
                 self.user = self.User_repository.get_user(self.view.value_mail)
                 return True
             else:
                 print("wrong password")
-                return False
+                return False"""
 
     #=================REGISTER METHODS=======================#
 
