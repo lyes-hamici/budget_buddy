@@ -24,10 +24,10 @@ class LoginFrame(ctk.CTkFrame):
             label = ctk.CTkLabel(master=frame, text='BUDGET BUDDY', font=('helvetica', 64))
             label.pack(pady=12, padx=10)
 
-            self.user_entry = ctk.CTkEntry(master=frame, placeholder_text="Pseudo/mail", textvariable=self.value_name, text_color='white')
+            self.user_entry = ctk.CTkEntry(master=frame, placeholder_text="Pseudo/mail", text_color='white')
             self.user_entry.pack(pady=12, padx=10)
 
-            self.user_pass = ctk.CTkEntry(master=frame, placeholder_text="mot de passe", textvariable=self.value_password , show="*")
+            self.user_pass = ctk.CTkEntry(master=frame, placeholder_text="Password", show="*")
             self.user_pass.pack(pady=12, padx=10)
 
             login_button = ctk.CTkButton(master=frame, text='Login', command=self.on_login_button_click)   

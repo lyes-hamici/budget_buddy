@@ -14,10 +14,8 @@ class Window(ctk.CTk):
         Constructor of the class. It initializes the main window of the application.
         '''
         super().__init__()
-        self.title("Hess d'epargne")
+        self.title("Tkinter MVC")
         self.geometry("1280x720")
-        self.minsize(1280, 720)
-        self.maxsize(1280, 720)
         self.resizable(False, False)
         self.value_name = ctk.StringVar()
         self.value_password = ctk.StringVar()
@@ -144,4 +142,4 @@ class Window(ctk.CTk):
     
 if __name__ == "__main__":
     app = Window()
-    app.display_dashboard()
+    app.mainloop()
