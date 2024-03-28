@@ -40,6 +40,9 @@ class Controller:
                 self.view.set_value_display_page(0)
             if self.view.value_display_page == 3:
                 self.view.display_home_page()
+                print("entry values from login page")
+                print("value_name = ", self.view.value_name)
+                print("value_password = ", self.view.value_password)
                 self.set_old_value_display_page(3)
                 self.view.set_value_display_page(0)
             if self.view.value_display_page == 4:
@@ -49,6 +52,7 @@ class Controller:
 
     def forget_display(self):
         if self.old_value_display_page == 1:
+            self.get_entry_values_from_login_page()
             self.view.forgetLoginPage()
         elif self.old_value_display_page == 2:
             self.view.forgetRegisterPage()
@@ -60,6 +64,13 @@ class Controller:
             self.view.dashboard.pack_forget()
         elif self.old_value_display_page == 5:
             self.view.graphics.pack_forget()
+    
+    #=================LOGIN METHODS=======================#
+
+    def get_entry_values_from_login_page(self):
+        print("tes methods entry values from login page")
+        self.view.value_name = self.view.login_frame.user_entry.get()
+        self.view.value_password = self.view.login_frame.user_pass.get()
 
 
 
