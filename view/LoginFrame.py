@@ -7,10 +7,6 @@ class LoginFrame(ctk.CTkFrame):
     '''
     def __init__(self, master):
         super().__init__(master)
-        self.value_name = ctk.StringVar()
-        self.value_password = ctk.StringVar()
-        self.value_remember_me = ctk.BooleanVar()
-        self.running = True
         self._create_widgets()
 
     def _create_widgets(self):
