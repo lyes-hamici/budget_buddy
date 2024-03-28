@@ -48,6 +48,10 @@ class Controller:
                     print("entry values from login page")
                     print("value_name = ", self.view.value_mail)
                     print("value_password = ", self.view.value_password)
+                else:
+                    self.view.displayLoginPage()
+                    self.set_old_value_display_page(1)
+                    self.view.set_value_display_page(0)
             if self.view.value_display_page == 4:
                 self.view.display_account_page()
                 self.set_old_value_display_page(4)
