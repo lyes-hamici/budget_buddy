@@ -9,7 +9,7 @@ class Controller:
     def __init__(self):
         self.db = Db()
         self.Transaction_repository = Transaction_repository(self.db)
-        self.User_repository = User_repository()
+        self.User_repository = User_repository(self.db)
         self.view = Window()
         self.old_value_display_page = 0
         self.thread = threading.Thread(target=self.observer)
