@@ -17,7 +17,7 @@ class Window(ctk.CTk):
         self.title("Tkinter MVC")
         self.geometry("1280x720")
         self.resizable(False, False)
-        self.value_name = ctk.StringVar()
+        self.value_mail = ctk.StringVar()
         self.value_password = ctk.StringVar()
         self.value_remember_me = ctk.BooleanVar()
         self.balance = ctk.DoubleVar()
@@ -25,11 +25,11 @@ class Window(ctk.CTk):
 
     #=================GETTERS & SETTERS=======================#
     #=================GETTERS=======================#
-    def get_value_name(self):
+    def get_value_mail(self):
         '''
         This method returns the value of the name.
         '''
-        return self.value_name
+        return self.value_mail
     
     def get_value_password(self):
         '''
@@ -50,11 +50,11 @@ class Window(ctk.CTk):
         return self.balance
     
     #=================SETTERS=======================#
-    def set_value_name(self, value):
+    def set_value_mail(self, value):
         '''
         This method sets the value of the name.
         '''
-        self.value_name = value
+        self.value_mail = value
 
     def set_value_password(self, value):
         '''
