@@ -25,6 +25,8 @@ class Controller:
                 self.forget_display()
                 self.change_display()
             time.sleep(0.1)
+            
+            self.view.set_balance(self.Transaction_repository.calculate_balance(1))
 
     
    
