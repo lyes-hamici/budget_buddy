@@ -3,11 +3,16 @@ from model import Transaction
 class Transaction_repository:
     def __init__(self,db):
         self.db = db
-    
-    #================SETTERS & GETTERS=======================#
+    #=================SETTERS=======================#
+    def create_transaction(self, user_id, name, description, amount, category_id, type, date):
+        """
+        Creates a transaction in the database.
+        Params: user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, type: The type of the transaction, date: The date of the transaction
+        """
+        query = "INSERT INTO transaction (user_id, name, description, amount, category_id, type, date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        self.db.query(query, (user_id, name, description, amount, category_id, type, date))
+        
     #=================GETTERS=======================#
-    
-            #======Transactions======#
     def get_all_transactions_of_user(self, user_id):
         """
         Retrieves all transactions of a specific user from the database.
@@ -17,7 +22,16 @@ class Transaction_repository:
         query = "SELECT * FROM transaction WHERE user_id = %s"
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
-        
+
+    def get_all_transactions_last_month(self, user_id):
+        """
+        Retrieves all transactions of the last month from the database.
+        Params: user_id: The ID of the user
+        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        """
+        query = "SELECT * FROM transaction WHERE user_id = %s AND date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)"
+        response = self.db.query(query, (user_id,))
+        return [Transaction(*row) for row in response]
     
     def get_expenses(self, user_id):
         """

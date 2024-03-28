@@ -91,3 +91,8 @@ class Controller:
 
     def main(self):
         self.view.mainloop()
+        
+        
+# transaction_list = self.Transaction_repository.get_all_transactions_of_user(1)
+# for transaction in transaction_list:
+#     self.view.transaction_list.append(transaction.return_list())

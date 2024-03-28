@@ -12,12 +12,6 @@ class Model:
         query = "SELECT name FROM category WHERE category_id = %s"
         return self.db.query(query, (category_id,))
     
-    def get_user_by_id(self, user_id):
-        """
-        Retrieves the information of a user from its id.
-        """
-        query = "SELECT * FROM user WHERE user_id = %s"
-        return self.db.query(query, (user_id,))
     
     def get_transaction_by_id(self, transaction_id):
         """
