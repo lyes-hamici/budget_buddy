@@ -1,5 +1,5 @@
 from view import Window
-from model import Transaction_repository, User_repository
+from model import Transaction_repository, User_repository, User
 from services import Db
 
 import threading
@@ -41,12 +41,13 @@ class Controller:
                 self.set_old_value_display_page(2)
                 self.view.set_value_display_page(0)
             if self.view.value_display_page == 3:
-                self.view.display_home_page()
-                print("entry values from login page")
-                print("value_name = ", self.view.value_name)
-                print("value_password = ", self.view.value_password)
-                self.set_old_value_display_page(3)
-                self.view.set_value_display_page(0)
+                if self.login():
+                    self.view.display_home_page()
+                    self.set_old_value_display_page(3)
+                    self.view.set_value_display_page(0)
+                    print("entry values from login page")
+                    print("value_name = ", self.view.value_mail)
+                    print("value_password = ", self.view.value_password)
             if self.view.value_display_page == 4:
                 self.view.display_account_page()
                 self.set_old_value_display_page(4)
@@ -71,8 +72,20 @@ class Controller:
 
     def get_entry_values_from_login_page(self):
         print("tes methods entry values from login page")
-        self.view.value_name = self.view.login_frame.user_entry.get()
+        self.view.value_mail = self.view.login_frame.user_entry.get()
         self.view.value_password = self.view.login_frame.user_pass.get()
+
+    def login(self):
+        self.get_entry_values_from_login_page()
+        if self.User_repository.verify_if_exist(self.view.value_mail):
+            if self.User_repository.verify_if_correct(self.view.value_mail, self.view.value_password):
+                self.user = self.User_repository.get_user(self.view.value_mail)
+                return True
+            else:
+                print("wrong password")
+                return False
+
+    #=================REGISTER METHODS=======================#
 
 
 
