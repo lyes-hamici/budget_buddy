@@ -4,6 +4,7 @@ from .RegisterFrame import RegisterFrame
 from .Home import Home
 from .Account import Account
 from .Dashboard import Dashboard
+from .GraphicFrame import GraphicFrame
 
 class Window(ctk.CTk):
     '''
@@ -126,6 +127,13 @@ class Window(ctk.CTk):
         self.display_dashboard()
         self.account = Account(self)
         self.account.pack(side='left', expand=True, fill='both')
+
+
+
+    def display_graphic_page(self):
+        self.display_dashboard()
+        self.graphics = GraphicFrame(self)
+        self.graphics.pack(side='left', expand=True, fill='both')
     
     def display_dashboard(self):
         '''
