@@ -12,6 +12,7 @@ class Controller:
         self.User_repository = User_repository(self.db)
         self.view = Window()
         self.old_value_display_page = 0
+        self.thread_running = True
         self.thread = threading.Thread(target=self.observer)
         self.thread.start()
 
@@ -20,7 +21,7 @@ class Controller:
         
 
     def observer(self):
-        while True:
+        while self.thread_running:
             if self.view.value_display_page != 0:
                 self.forget_display()
                 self.change_display()
@@ -140,6 +141,10 @@ class Controller:
 
     def main(self):
         self.view.mainloop()
+
+    def stop_thread(self):
+        self.thread_running = False
+        self.thread.join()
         
         
 # transaction_list = self.Transaction_repository.get_all_transactions_of_user(1)
