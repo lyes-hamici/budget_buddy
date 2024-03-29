@@ -48,7 +48,8 @@ class RegisterFrame(ctk.CTkFrame):
     # to this point new methods
 
     def on_click_validation(self):
-        self.master.register_new_user()
+        self.master.set_value_display_page(1)
+        self.master.set_value_asking_for_creation(True)
     
     def on_go_back(self):
         self.master.set_value_display_page(1)
