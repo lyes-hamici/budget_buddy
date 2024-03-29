@@ -33,9 +33,24 @@ class Controller:
     
     def change_display(self):
             if self.view.value_display_page == 1:
-                self.view.displayLoginPage()
-                self.set_old_value_display_page(1)
-                self.view.set_value_display_page(0)
+
+                if self.view.asking_for_creation:
+                    if self.check_user_creation():
+                        print("user created")
+                        self.view.displayLoginPage()
+                        self.set_old_value_display_page(1)
+                        self.view.set_value_display_page(0)
+                        self.view.asking_for_creation = False
+                    else:
+                        self.view.displayRegisterPage()
+                        self.set_old_value_display_page(2)
+                        self.view.set_value_display_page(0)
+                        self.view.asking_for_creation = False
+                else:
+                    self.view.displayLoginPage()
+                    self.set_old_value_display_page(1)
+                    self.view.set_value_display_page(0)
+
             if self.view.value_display_page == 2:
                 self.view.displayRegisterPage()
                 self.set_old_value_display_page(2)
@@ -97,8 +112,24 @@ class Controller:
                 return False"""
 
     #=================REGISTER METHODS=======================#
+    def get_entry_values_from_register_page(self):
+        self.view.value_name = self.view.register_frame.entry1.get()
+        self.view.value_firstname = self.view.register_frame.entry2.get()
+        self.view.value_password = self.view.register_frame.entry3.get()
+        self.view.value_password_confirm = self.view.register_frame.entry31.get()
+        self.view.value_mail = self.view.register_frame.entry4.get()
+        self.view.value_mail_confirm = self.view.register_frame.entry41.get()
 
-
+    def check_user_creation(self):
+        self.get_entry_values_from_register_page()
+        if self.view.value_password == self.view.value_password_confirm and self.view.value_mail == self.view.value_mail_confirm:
+            print("test input values passed")
+            if self.User_repository.create_user(self.view.value_name, self.view.value_firstname, self.view.value_mail, self.view.value_password):
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def main(self):
         self.view.mainloop()
