@@ -1,5 +1,5 @@
 from view import Window
-from model import Transaction_repository, User_repository
+from model import Transaction_repository, User_repository, User
 from services import Db
 
 import threading
@@ -33,24 +33,51 @@ class Controller:
     
     def change_display(self):
             if self.view.value_display_page == 1:
-                self.view.displayLoginPage()
-                self.set_old_value_display_page(1)
-                self.view.set_value_display_page(0)
+
+                if self.view.asking_for_creation:
+                    if self.check_user_creation():
+                        print("user created")
+                        self.view.displayLoginPage()
+                        self.set_old_value_display_page(1)
+                        self.view.set_value_display_page(0)
+                        self.view.asking_for_creation = False
+                    else:
+                        self.view.displayRegisterPage()
+                        self.set_old_value_display_page(2)
+                        self.view.set_value_display_page(0)
+                        self.view.asking_for_creation = False
+                else:
+                    self.view.displayLoginPage()
+                    self.set_old_value_display_page(1)
+                    self.view.set_value_display_page(0)
+
             if self.view.value_display_page == 2:
                 self.view.displayRegisterPage()
                 self.set_old_value_display_page(2)
                 self.view.set_value_display_page(0)
             if self.view.value_display_page == 3:
-                self.view.display_home_page()
-                print("entry values from login page")
-                print("value_name = ", self.view.value_name)
-                print("value_password = ", self.view.value_password)
-                self.set_old_value_display_page(3)
-                self.view.set_value_display_page(0)
+                if self.login():
+                    self.view.display_home_page()
+                    self.set_old_value_display_page(3)
+                    self.view.set_value_display_page(0)
+                    print("entry values from login page")
+                    print("value_name = ", self.view.value_mail)
+                    print("value_password = ", self.view.value_password)
+                else:
+                    self.view.displayLoginPage()
+                    self.set_old_value_display_page(1)
+                    self.view.set_value_display_page(0)
+                    
             if self.view.value_display_page == 4:
                 self.view.display_account_page()
                 self.set_old_value_display_page(4)
                 self.view.set_value_display_page(0)
+
+            if self.view.value_display_page == 5:
+                self.view.display_graphic_page()
+                self.set_old_value_display_page(5)
+                self.view.set_value_display_page(0)
+
 
     def forget_display(self):
         if self.old_value_display_page == 1:
@@ -65,16 +92,51 @@ class Controller:
             self.view.account.pack_forget()
             self.view.dashboard.pack_forget()
         elif self.old_value_display_page == 5:
+            self.view.dashboard.pack_forget()
             self.view.graphics.pack_forget()
     
     #=================LOGIN METHODS=======================#
 
     def get_entry_values_from_login_page(self):
         print("tes methods entry values from login page")
-        self.view.value_name = self.view.login_frame.user_entry.get()
+        self.view.value_mail = self.view.login_frame.user_entry.get()
         self.view.value_password = self.view.login_frame.user_pass.get()
 
+    def login(self):
+        self.get_entry_values_from_login_page()
+        self.user = self.User_repository.connect_user(self.view.value_mail, self.view.value_password)
+        if self.user:
+            return True
+        else:
+            return False
+        
+        """if self.User_repository.verify_if_exist(self.view.value_mail):
+            if self.User_repository.verify_if_correct(self.view.value_mail, self.view.value_password):
+                self.user = self.User_repository.get_user(self.view.value_mail)
+                return True
+            else:
+                print("wrong password")
+                return False"""
 
+    #=================REGISTER METHODS=======================#
+    def get_entry_values_from_register_page(self):
+        self.view.value_name = self.view.register_frame.entry1.get()
+        self.view.value_firstname = self.view.register_frame.entry2.get()
+        self.view.value_password = self.view.register_frame.entry3.get()
+        self.view.value_password_confirm = self.view.register_frame.entry31.get()
+        self.view.value_mail = self.view.register_frame.entry4.get()
+        self.view.value_mail_confirm = self.view.register_frame.entry41.get()
+
+    def check_user_creation(self):
+        self.get_entry_values_from_register_page()
+        if self.view.value_password == self.view.value_password_confirm and self.view.value_mail == self.view.value_mail_confirm:
+            print("test input values passed")
+            if self.User_repository.create_user(self.view.value_name, self.view.value_firstname, self.view.value_mail, self.view.value_password):
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def main(self):
         self.view.mainloop()

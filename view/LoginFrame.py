@@ -7,10 +7,6 @@ class LoginFrame(ctk.CTkFrame):
     '''
     def __init__(self, master):
         super().__init__(master)
-        self.value_name = ctk.StringVar()
-        self.value_password = ctk.StringVar()
-        self.value_remember_me = ctk.BooleanVar()
-        self.running = True
         self._create_widgets()
 
     def _create_widgets(self):
@@ -33,7 +29,7 @@ class LoginFrame(ctk.CTkFrame):
             login_button = ctk.CTkButton(master=frame, text='Login', command=self.on_login_button_click)   
             login_button.pack(pady=12, padx=10)
 
-            self.remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me', variable=self.value_remember_me, onvalue=True, offvalue=False)
+            self.remember_checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me', variable=self.master.value_remember_me, onvalue=True, offvalue=False)
             self.remember_checkbox.pack(pady=12, padx=10)
 
             register_button = ctk.CTkButton(master=frame, text='Register', command=self.on_register_button_click)

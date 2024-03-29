@@ -1,4 +1,5 @@
 from model import User
+from services import register_verification
 
 class User_repository:
     def __init__(self, db):
@@ -43,9 +44,9 @@ class User_repository:
         Params: the email and password of the user.
         Returns: Boolean - True if the user is created, False if not.
         """
-        if not self.verify_if_exist(email):
+        if register_verification.is_valid_registration(email, password) and not self.verify_if_exist(email):
             query = "INSERT INTO user (name, lastname, email, password) VALUES (%s, %s, %s, %s)"
-            self.db.query(query, (name, lastname, email, password))
+            self.db.execute(query, (name, lastname, email, password))
             return True
         else:
             return False

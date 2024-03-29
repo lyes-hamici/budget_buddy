@@ -10,7 +10,7 @@ class Transaction_repository:
         Params: user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, type: The type of the transaction, date: The date of the transaction
         """
         query = "INSERT INTO transaction (user_id, name, description, amount, category_id, type, date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        self.db.query(query, (user_id, name, description, amount, category_id, type, date))
+        self.db.execute(query, (user_id, name, description, amount, category_id, type, date))
         
     #=================GETTERS=======================#
     def get_all_transactions_of_user(self, user_id):

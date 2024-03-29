@@ -4,6 +4,7 @@ from .RegisterFrame import RegisterFrame
 from .Home import Home
 from .Account import Account
 from .Dashboard import Dashboard
+from .GraphicFrame import GraphicFrame
 
 class Window(ctk.CTk):
     '''
@@ -18,18 +19,23 @@ class Window(ctk.CTk):
         self.geometry("1280x720")
         self.resizable(False, False)
         self.value_name = ctk.StringVar()
+        self.value_firstname = ctk.StringVar()
+        self.value_mail = ctk.StringVar()
+        self.value_mail_confirm = ctk.StringVar()
         self.value_password = ctk.StringVar()
+        self.value_password_confirm = ctk.StringVar()
         self.value_remember_me = ctk.BooleanVar()
         self.balance = ctk.DoubleVar()
         self.value_display_page = 1
+        self.asking_for_creation = False
 
     #=================GETTERS & SETTERS=======================#
     #=================GETTERS=======================#
-    def get_value_name(self):
+    def get_value_mail(self):
         '''
         This method returns the value of the name.
         '''
-        return self.value_name
+        return self.value_mail
     
     def get_value_password(self):
         '''
@@ -50,11 +56,11 @@ class Window(ctk.CTk):
         return self.balance
     
     #=================SETTERS=======================#
-    def set_value_name(self, value):
+    def set_value_mail(self, value):
         '''
         This method sets the value of the name.
         '''
-        self.value_name = value
+        self.value_mail = value
 
     def set_value_password(self, value):
         '''
@@ -79,6 +85,12 @@ class Window(ctk.CTk):
         This method sets the value of the display page.
         '''
         self.value_display_page = value
+
+    def set_value_asking_for_creation(self, value):
+        '''
+        This method sets the value of the asking for creation.
+        '''
+        self.asking_for_creation = value
     
     #=================DISPLAY METHODS=======================#
 
@@ -126,6 +138,13 @@ class Window(ctk.CTk):
         self.display_dashboard()
         self.account = Account(self)
         self.account.pack(side='left', expand=True, fill='both')
+
+
+
+    def display_graphic_page(self):
+        self.display_dashboard()
+        self.graphics = GraphicFrame(self)
+        self.graphics.pack(side='left', expand=True, fill='both')
     
     def display_dashboard(self):
         '''
