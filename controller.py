@@ -58,6 +58,12 @@ class Controller:
                 self.set_old_value_display_page(4)
                 self.view.set_value_display_page(0)
 
+            if self.view.value_display_page == 5:
+                self.view.display_graphic_page()
+                self.set_old_value_display_page(5)
+                self.view.set_value_display_page(0)
+
+
     def forget_display(self):
         if self.old_value_display_page == 1:
             self.get_entry_values_from_login_page()
@@ -71,6 +77,7 @@ class Controller:
             self.view.account.pack_forget()
             self.view.dashboard.pack_forget()
         elif self.old_value_display_page == 5:
+            self.view.dashboard.pack_forget()
             self.view.graphics.pack_forget()
     
     #=================LOGIN METHODS=======================#
