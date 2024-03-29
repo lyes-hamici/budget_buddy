@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from CTkMessagebox import CTkMessagebox
 from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton
 
 
@@ -70,3 +71,14 @@ class RegisterFrame(ctk.CTkFrame):
     
     def on_go_back(self):
         self.master.set_value_display_page(1)
+
+
+    def show_warning(self,text):
+    # Show some retry/cancel warnings
+        msg = CTkMessagebox(title="Error", message=text,
+                    icon="warning", option_1="Cancel", option_2="Retry")
+        
+        if msg.get()=="Retry":
+            self.show_warning()
+
+
