@@ -45,6 +45,7 @@ class User_repository:
         Returns: Boolean - True if the user is created, False if not.
         """
         if register_verification.is_valid_registration(email, password) and not self.verify_if_exist(email):
+            print("test query passed")
             query = "INSERT INTO user (name, lastname, email, password) VALUES (%s, %s, %s, %s)"
             self.db.query(query, (name, lastname, email, password))
             return True
