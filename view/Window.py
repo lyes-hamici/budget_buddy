@@ -17,11 +17,16 @@ class Window(ctk.CTk):
         self.title("Tkinter MVC")
         self.geometry("1280x720")
         self.resizable(False, False)
+        self.value_name = ctk.StringVar()
+        self.value_firstname = ctk.StringVar()
         self.value_mail = ctk.StringVar()
+        self.value_mail_confirm = ctk.StringVar()
         self.value_password = ctk.StringVar()
+        self.value_password_confirm = ctk.StringVar()
         self.value_remember_me = ctk.BooleanVar()
         self.balance = ctk.DoubleVar()
         self.value_display_page = 1
+        self.asking_for_creation = False
 
     #=================GETTERS & SETTERS=======================#
     #=================GETTERS=======================#
@@ -79,6 +84,12 @@ class Window(ctk.CTk):
         This method sets the value of the display page.
         '''
         self.value_display_page = value
+
+    def set_value_asking_for_creation(self, value):
+        '''
+        This method sets the value of the asking for creation.
+        '''
+        self.asking_for_creation = value
     
     #=================DISPLAY METHODS=======================#
 
