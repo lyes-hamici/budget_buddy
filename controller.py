@@ -145,7 +145,13 @@ class Controller:
     def stop_thread(self):
         self.thread_running = False
         self.thread.join()
-        
+
+    #=================TRANSACTION METHODS=======================#
+    def get_all_transactions(self):
+        transaction_list = self.Transaction_repository.get_all_transactions_of_user(self.user.user_id)
+        for transaction in transaction_list:
+            self.view.transaction_list.append(transaction.return_list())
+    
         
 # transaction_list = self.Transaction_repository.get_all_transactions_of_user(1)
 # for transaction in transaction_list:
