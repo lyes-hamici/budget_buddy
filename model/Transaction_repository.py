@@ -37,6 +37,16 @@ class Transaction_repository:
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
     
+    def get_3_last_transactions(self, user_id):
+        """
+        Retrieves the 3 last transactions of a user from the database.
+        Params: user_id: The ID of the user
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        """
+        query = "SELECT * FROM transaction WHERE user_id = %s ORDER BY date DESC LIMIT 3"
+        response = self.db.query(query, (user_id,))
+        return [Transaction(*row) for row in response]
+        
     def get_expenses(self, user_id):
         """
         Retrieves all expenses from the database.
