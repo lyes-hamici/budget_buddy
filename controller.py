@@ -1,6 +1,6 @@
 from view import Window
 from model import Transaction_repository, User_repository, User
-from services import Db
+from services import Db, Graph
 
 import threading
 import time
@@ -15,6 +15,7 @@ class Controller:
         self.thread_running = True
         self.thread = threading.Thread(target=self.observer)
         self.thread.start()
+        self.graph = Graph(1,self.Transaction_repository)
         self.user = None
 
     def set_old_value_display_page(self, value):
