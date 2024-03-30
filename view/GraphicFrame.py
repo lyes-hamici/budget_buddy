@@ -16,8 +16,8 @@ class GraphicFrame(CTkFrame):
         frame_graph.pack(expand=True, fill='both')
 
         # Expense and date data (for example)
-        dates = ["2024-01-01", "2024-01-05", "2024-01-10", "2024-01-15", "2024-01-20"]
-        expenses = [-500, -300, 1000, -700, 200]
+        dates = self.master.get_axis_x_graph_list()
+        expenses = self.master.get_axis_y_graph_list()
 
         fig, axis = plt.subplots()
 
@@ -35,7 +35,7 @@ class GraphicFrame(CTkFrame):
         plt.xticks(rotation=45, ha='right')
 
         # Add legend
-        axis.legend(handles=[bars[0], bars[-1]], labels=['Expenses', 'Income'])
+        axis.legend(handles=[bars[0], bars[-1]], labels=['Negative Balance', 'Positive Balance'])
 
         canvas = FigureCanvasTkAgg(fig, master=frame_graph)
         canvas.draw()
