@@ -4,11 +4,15 @@ class Transaction_repository:
     def __init__(self,db):
         self.db = db
     #=================SETTERS=======================#
-    def create_transaction(self, user_id, name, description, amount, category_id, type, date):
+    def create_transaction(self, user_id, name, description, amount, category_id, date): #if don't use condition put type as parameter and erase the condition
         """
         Creates a transaction in the database.
         Params: user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, type: The type of the transaction, date: The date of the transaction
         """
+        if amount < 0:
+            type = 0
+        else:
+            type = 1
         query = "INSERT INTO transaction (user_id, name, description, amount, category_id, type, date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         self.db.execute(query, (user_id, name, description, amount, category_id, type, date))
         
@@ -33,6 +37,16 @@ class Transaction_repository:
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
     
+    def get_3_last_transactions(self, user_id):
+        """
+        Retrieves the 3 last transactions of a user from the database.
+        Params: user_id: The ID of the user
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        """
+        query = "SELECT * FROM transaction WHERE user_id = %s ORDER BY date DESC LIMIT 3"
+        response = self.db.query(query, (user_id,))
+        return [Transaction(*row) for row in response]
+        
     def get_expenses(self, user_id):
         """
         Retrieves all expenses from the database.
