@@ -61,6 +61,12 @@ class Window(ctk.CTk):
         '''
         return self.balance
     
+    def get_transaction_list(self):
+        '''
+        This method returns the transaction list.
+        '''
+        return self.transaction_list
+    
     #=================SETTERS=======================#
     def set_value_mail(self, value):
         '''
