@@ -14,7 +14,7 @@ class Db:
             conn = mysql.connector.connect(
                 host="localhost",
                 user="root",
-                password="root",
+                password="ZTabarax1!",
                 database="budget"
             )
             print("Connected to the database.")

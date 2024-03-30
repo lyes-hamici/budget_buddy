@@ -18,18 +18,8 @@ class RegisterFrame(ctk.CTkFrame):
     def create_widgets(self):
         # Create a frame with specified width, height, and corner radius
         frame = CTkFrame(master=self, width=400, height=834, corner_radius=45)
-        frame.grid(row=0, column=0)
+        frame.place(relx =0.5,rely = 0.5, anchor = 'center')
 
-        # Retrieve the dimensions of the main window
-        window_width = self.master.winfo_width()
-        window_height = self.master.winfo_height()
-
-        # Calculate the coordinates to center the frame
-        x = (window_width - 400) // 2.8  # The width of the frame is 400
-        y = (window_height - 834)      # The height of the frame is 834
-
-        # Position the frame centered within the main window
-        frame.place(x=x, y=y)
 
         # Create a label for the registration
         label = CTkLabel(master=frame, text='Registration', font=('helvetica', 30))
