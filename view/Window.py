@@ -75,6 +75,18 @@ class Window(ctk.CTk):
         '''
         return self.transaction_list
     
+    def get_axis_x_graph_list(self):
+        '''
+        This method returns the x axis graph list.
+        '''
+        return self.axis_x_graph_list
+    
+    def get_axis_y_graph_list(self):
+        '''
+        This method returns the y axis graph list.
+        '''
+        return self.axis_y_graph_list
+    
     #=================SETTERS=======================#
     def set_value_mail(self, value):
         '''
