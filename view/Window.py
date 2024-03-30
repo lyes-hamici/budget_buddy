@@ -36,6 +36,9 @@ class Window(ctk.CTk):
         self.asking_for_creation = False
         # Variables for the account page
         self.transaction_list = []
+        # Variables for the graphic page
+        self.axis_x_graph_list = []
+        self.axis_y_graph_list = []
 
         
         
