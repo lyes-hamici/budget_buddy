@@ -21,14 +21,14 @@ class TransactionFrame():
     def display_frame(self, frame, i):
         print("test display frame", i)
         frame_date = CTkFrame(master=frame, fg_color="transparent", bg_color="transparent")
-        frame_date.pack(pady=15, fill=ctk.X)
+        frame_date.pack(pady=2, fill=ctk.X)
 
-        date_text = f"date {i[7]}"
-        date_label = CTkLabel(master=frame_date, text=date_text, font=('helvetica', 20),text_color='black')
-        date_label.pack(side="top", pady=5, anchor=ctk.W, padx=5)
+        date_text = f"Date {i[7]}"
+        date_label = CTkLabel(master=frame_date, text=date_text, font=('helvetica', 15),text_color='black')
+        date_label.pack(side="top", pady=2, anchor=ctk.W, padx=5)
 
         frame_transaction = CTkFrame(master=frame_date, border_color="black", border_width=2)
-        frame_transaction.pack(pady=15, fill=ctk.X, padx=5)
+        frame_transaction.pack(pady=5, fill=ctk.X, padx=5)
 
         # Ajout des boutons
         button1 = ctk.CTkButton(master=frame_transaction, text="Remove")
