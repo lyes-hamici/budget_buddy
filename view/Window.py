@@ -18,6 +18,8 @@ class Window(ctk.CTk):
         self.title("Tkinter MVC")
         self.geometry("1280x720")
         self.resizable(False, False)
+        self.value_display_page = 1
+        # Variables for the login page & register page
         self.value_name = ctk.StringVar()
         self.value_firstname = ctk.StringVar()
         self.value_mail = ctk.StringVar()
@@ -26,8 +28,12 @@ class Window(ctk.CTk):
         self.value_password_confirm = ctk.StringVar()
         self.value_remember_me = ctk.BooleanVar()
         self.balance = ctk.DoubleVar()
-        self.value_display_page = 1
         self.asking_for_creation = False
+        # Variables for the account page
+        self.transaction_list = []
+
+        
+        
 
     #=================GETTERS & SETTERS=======================#
     #=================GETTERS=======================#
@@ -54,6 +60,12 @@ class Window(ctk.CTk):
         This method returns the value of the balance.
         '''
         return self.balance
+    
+    def get_transaction_list(self):
+        '''
+        This method returns the transaction list.
+        '''
+        return self.transaction_list
     
     #=================SETTERS=======================#
     def set_value_mail(self, value):

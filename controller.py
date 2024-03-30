@@ -12,22 +12,26 @@ class Controller:
         self.User_repository = User_repository(self.db)
         self.view = Window()
         self.old_value_display_page = 0
+        self.thread_running = True
         self.thread = threading.Thread(target=self.observer)
         self.thread.start()
         self.graph = Graph(1,self.Transaction_repository)
+        self.user = None
 
     def set_old_value_display_page(self, value):
         self.old_value_display_page = value
         
 
     def observer(self):
-        while True:
+        while self.thread_running:
             if self.view.value_display_page != 0:
                 self.forget_display()
                 self.change_display()
             time.sleep(0.1)
-            
-            self.view.set_balance(self.Transaction_repository.calculate_balance(1))
+            """if self.user is not None:  
+                self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
+                self.get_all_transactions()
+                print("transaction list = ", self.view.transaction_list)"""
 
     
    
@@ -58,6 +62,10 @@ class Controller:
                 self.view.set_value_display_page(0)
             if self.view.value_display_page == 3:
                 if self.login():
+                    if self.user is not None:  
+                        self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
+                        self.get_all_transactions()
+                        print(" from view transaction list = ", self.view.transaction_list)
                     self.view.display_home_page()
                     self.set_old_value_display_page(3)
                     self.view.set_value_display_page(0)
@@ -141,7 +149,18 @@ class Controller:
 
     def main(self):
         self.view.mainloop()
-        
+
+    def stop_thread(self):
+        self.thread_running = False
+        self.thread.join()
+
+    #=================TRANSACTION METHODS=======================#
+    def get_all_transactions(self):
+        transaction_list = self.Transaction_repository.get_all_transactions_of_user(self.user.user_id)
+        print ("transaction_list = ", transaction_list)
+        for transaction in transaction_list:
+            self.view.transaction_list.append(transaction.return_list())
+    
         
 # transaction_list = self.Transaction_repository.get_all_transactions_of_user(1)
 # for transaction in transaction_list:
