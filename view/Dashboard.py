@@ -16,7 +16,7 @@ class Dashboard(CTkFrame):
         account_button = CTkButton(master=frame, text="Account",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30, command=self.on_account_button_click,width=100)
         graphics_button = CTkButton(master=frame, text="Graphics",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30, command=self.on_graphics_button_click,width=100)
         logout_button = CTkButton(master=frame, text="Logout",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30, command=self.on_logout_button_click,width=100)
-        transaction_button = CTkButton(master=frame, text="Transaction",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30, command="",width=100)
+        transaction_button = CTkButton(master=frame, text="Transaction",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30, command=self.on_transaction_button_click,width=100)
         
         
         home_button.pack(padx = 80,pady = 30)
@@ -33,6 +33,10 @@ class Dashboard(CTkFrame):
     
     def on_graphics_button_click(self):
         self.master.set_value_display_page(5)
+
+
+    def on_transaction_button_click(self):
+        self.master.set_value_display_page(6)
 
     def on_logout_button_click(self):
         pass
