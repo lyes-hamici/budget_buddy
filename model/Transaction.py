@@ -11,11 +11,11 @@ class Transaction:
         self.date = date
         
     def __repr__(self) -> str:
-        return f"{self.transaction_id}%{self.user_id}%{self.name}%{self.description}%{self.amount}%{self.category_id}%{self.type}%{self.date}"
+        return f"{self.transaction_id}%{self.user_id}%{self.name}%{self.description}%{self.amount}%{self.category}%{self.type}%{self.date}"
     def return_list(self):
         """
         This method returns the transaction as a list.
         Returns: [list] - The transaction as a list
         indexes: 0 - transaction_id, 1 - user_id, 2 - name, 3 - description, 4 - amount, 5 - category_id, 6 - type, 7 - date
         """
-        return [self.transaction_id, self.user_id, self.name, self.description, self.amount, self.category_id, self.type, self.date]
+        return [self.transaction_id, self.user_id, self.name, self.description, self.amount, self.category, self.type, self.date]
