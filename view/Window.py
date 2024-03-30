@@ -90,7 +90,7 @@ class Window(ctk.CTk):
         '''
         This method sets the value of the balance.
         '''
-        self.balance = value
+        self.balance = format(value, '.2f')
 
     def set_value_display_page(self, value):
         '''

@@ -159,6 +159,7 @@ class Controller:
         print ("transaction_list = ", transaction_list)
         for transaction in transaction_list:
             self.view.transaction_list.append(transaction.return_list())
+        self.view.transaction_list.reverse()
     
         
 # transaction_list = self.Transaction_repository.get_all_transactions_of_user(1)
