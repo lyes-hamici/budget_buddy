@@ -87,6 +87,11 @@ class Controller:
                 self.set_old_value_display_page(5)
                 self.view.set_value_display_page(0)
 
+            if self.view.value_display_page == 6:
+                self.view.display_transaction_page()
+                self.set_old_value_display_page(6)
+                self.view.set_value_display_page(0)
+
 
     def forget_display(self):
         if self.old_value_display_page == 1:
@@ -101,6 +106,9 @@ class Controller:
             self.view.account.pack_forget()
             self.view.dashboard.pack_forget()
         elif self.old_value_display_page == 5:
+            self.view.dashboard.pack_forget()
+            self.view.graphics.pack_forget()
+        elif self.old_value_display_page == 6:
             self.view.dashboard.pack_forget()
             self.view.graphics.pack_forget()
     
