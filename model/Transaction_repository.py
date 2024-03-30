@@ -21,9 +21,14 @@ class Transaction_repository:
         """
         Retrieves all transactions of a specific user from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_name, type, date)
         """
-        query = "SELECT * FROM transaction WHERE user_id = %s"
+        query = """
+        SELECT t.id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.user_id = %s
+        """
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
 

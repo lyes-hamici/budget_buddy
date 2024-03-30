@@ -1,12 +1,12 @@
 class Transaction:
     """Class that represents a transaction in the database."""
-    def __init__(self, transaction_id, user_id, name, description, amount, category_id, type, date) -> None:
+    def __init__(self, transaction_id, user_id, name, description, amount, category, type, date) -> None:
         self.transaction_id = transaction_id
         self.user_id = user_id
         self.name = name
         self.description = description
         self.amount = amount
-        self.category_id = category_id
+        self.category = category
         self.type = type
         self.date = date
         
