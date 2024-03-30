@@ -18,6 +18,7 @@ class Window(ctk.CTk):
         self.title("Tkinter MVC")
         self.geometry("1280x720")
         self.resizable(False, False)
+        self.config(bg="cornsilk1")
         self.value_display_page = 1
         # Variables for the login page & register page
         self.value_name = ctk.StringVar()
@@ -132,7 +133,6 @@ class Window(ctk.CTk):
         this method hides the register page.
         '''
         self.register_frame.pack_forget()
-        self.config(bg="cornsilk1")
 
     def display_home_page(self):
         '''
