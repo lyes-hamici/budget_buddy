@@ -5,6 +5,7 @@ from .Home import Home
 from .Account import Account
 from .Dashboard import Dashboard
 from .GraphicFrame import GraphicFrame
+from .TransactionPage import TrasactionPage
 
 class Window(ctk.CTk):
     '''
@@ -161,6 +162,12 @@ class Window(ctk.CTk):
         self.display_dashboard()
         self.graphics = GraphicFrame(self)
         self.graphics.pack(side='left', expand=True, fill='both')
+
+
+    def display_transaction_page(self):
+        self.display_dashboard()
+        self.transaction = TrasactionPage(self)
+        self.transaction.pack(side='left', expand=True, fill='both')
     
     def display_dashboard(self):
         '''
