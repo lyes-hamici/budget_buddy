@@ -37,6 +37,9 @@ class Window(ctk.CTk):
         self.asking_for_creation = False
         # Variables for the account page
         self.transaction_list = []
+        # Variables for the graphic page
+        self.axis_x_graph_list = []
+        self.axis_y_graph_list = []
 
         
         
@@ -72,6 +75,18 @@ class Window(ctk.CTk):
         This method returns the transaction list.
         '''
         return self.transaction_list
+    
+    def get_axis_x_graph_list(self):
+        '''
+        This method returns the x axis graph list.
+        '''
+        return self.axis_x_graph_list
+    
+    def get_axis_y_graph_list(self):
+        '''
+        This method returns the y axis graph list.
+        '''
+        return self.axis_y_graph_list
     
     #=================SETTERS=======================#
     def set_value_mail(self, value):

@@ -15,7 +15,6 @@ class Controller:
         self.thread_running = True
         self.thread = threading.Thread(target=self.observer)
         self.thread.start()
-        self.graph = Graph(1,self.Transaction_repository)
         self.user = None
 
     def set_old_value_display_page(self, value):
@@ -66,6 +65,7 @@ class Controller:
                         self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
                         self.get_all_transactions()
                         print(" from view transaction list = ", self.view.transaction_list)
+                        self.get_graph()
                     self.view.display_home_page()
                     self.set_old_value_display_page(3)
                     self.view.set_value_display_page(0)
@@ -169,6 +169,12 @@ class Controller:
         for transaction in transaction_list:
             self.view.transaction_list.append(transaction.return_list())
         self.view.transaction_list.reverse()
+
+    #=================GRAPHIC METHODS=======================#
+    def get_graph(self):
+        self.graph = Graph(self.user.user_id, self.Transaction_repository)
+        self.view.axis_y_graph_list = self.graph.get_30_days_balance_list()
+        self.view.axis_x_graph_list = self.graph.get_list_dates()
     
         
 # transaction_list = self.Transaction_repository.get_all_transactions_of_user(1)
