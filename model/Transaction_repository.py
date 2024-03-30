@@ -138,6 +138,17 @@ class Transaction_repository:
         response = result[0][0]
         return response
     
+    def calculate_balance_by_date(self, user_id, date):
+        """
+        Calculates the balance of a user at a specific date.
+        Params: user_id: The ID of the user, date: The date
+        Returns: float - The balance
+        """
+        query = "SELECT SUM(amount) FROM transaction WHERE user_id = %s AND date <= %s ORDER BY date DESC"
+        result = self.db.query(query, (user_id, date))
+        response = result[0][0]
+        return response
+    
     def calculate_income(self, user_id):
         """
         Calculates the income of a user.
