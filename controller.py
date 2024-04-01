@@ -24,6 +24,37 @@ class Controller:
 
     def observer(self):
         while self.thread_running:
+            print("all variables from observer")
+            print("old value display page = ", self.old_value_display_page)
+            print("value display page = ", self.view.value_display_page)
+            print("value name = ", self.view.value_name)
+            print("value firstname = ", self.view.value_firstname)
+            print("value mail = ", self.view.value_mail)
+            print("value mail confirm = ", self.view.value_mail_confirm)
+            print("value password = ", self.view.value_password)
+            print("value password confirm = ", self.view.value_password_confirm)
+            print("value remember me = ", self.view.value_remember_me)
+            print("balance = ", self.view.balance)
+            print("overdraft = ", self.view.overdraft)
+            print("asking for creation = ", self.view.asking_for_creation)
+            print("add transaction = ", self.view.add_transaction)
+            print("transaction list = ", self.view.transaction_list)
+            print("axis x graph list = ", self.view.axis_x_graph_list)
+            print("axis y graph list = ", self.view.axis_y_graph_list)
+            print("logout request = ", self.view.logout_request)
+            print("id transaction = ", self.view.id_transaction)
+            print("transaction list = ", self.view.transaction_list)
+            print("transaction list = ", self.view.transaction_list)
+
+            
+            if self.view.logout_request == True:
+                print("logout request from observer")
+                print("old value display page = ", self.old_value_display_page)
+                self.user = None
+                self.view.logout_request = False
+                """self.view.displayLoginPage()"""
+                self.view.set_value_display_page(1)
+                """self.flush_variables()"""
             if self.view.id_transaction:
                 self.remove_transaction(self.view.id_transaction)
                 self.view.id_transaction = None
@@ -51,6 +82,7 @@ class Controller:
                     self.get_all_transactions()
                     print(" from view transaction list = ", self.view.transaction_list)
                     self.get_graph()
+                print("test for logout before forget display")
                 self.forget_display()
                 self.change_display()
             time.sleep(0.1)
@@ -130,6 +162,7 @@ class Controller:
         elif self.old_value_display_page == 2:
             self.view.forgetRegisterPage()
         elif self.old_value_display_page == 3:
+            print("forget display home page")
             self.view.home.pack_forget()
             self.view.dashboard.pack_forget()
         elif self.old_value_display_page == 4:
@@ -228,6 +261,7 @@ class Controller:
         self.view.value_password = ""
         self.view.value_password_confirm = ""
         self.view.balance = 0
+        self.view.overdraft = 0
         self.view.asking_for_creation = False
         self.view.transaction_list = []
         self.view.axis_x_graph_list = []
