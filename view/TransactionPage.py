@@ -20,11 +20,11 @@ class TrasactionPage(CTkFrame):
         frame2.pack(expand=True, side=ctk.TOP, fill='both')
 
         # Left side - Entry widgets
-        entry1 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="name")
-        entry2 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Description")
-        entry3 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Category")
-        entry4 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Values")
-        entry5 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Date")
+        entry1 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="name",placeholder_text_color="black",text_color="black")
+        entry2 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Description",placeholder_text_color="black",text_color="black")
+        entry3 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Category",placeholder_text_color="black",text_color="black")
+        entry4 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Values",placeholder_text_color="black",text_color="black")
+        entry5 = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Date",placeholder_text_color="black",text_color="black")
         
 
         # Right side - Button widgets
