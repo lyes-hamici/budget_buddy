@@ -36,7 +36,6 @@ class Controller:
                 self.get_graph()
             if self.view.value_display_page != 0:
                 self.flush_variables()
-                self.update_overdraft()
                 if self.user is not None:  
                         self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
                         self.get_all_transactions()
