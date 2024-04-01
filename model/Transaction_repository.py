@@ -1,5 +1,5 @@
 from model import Transaction
-import datetime
+from datetime import datetime
 
 class Transaction_repository:
     def __init__(self,db):
