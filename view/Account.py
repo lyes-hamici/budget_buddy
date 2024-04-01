@@ -5,7 +5,7 @@ from .TransactionFrame import TransactionFrame
 class Account(CTkFrame):
     def __init__(self,master):
         super().__init__(master)
-        self.transaction = TransactionFrame()
+        self.transaction = TransactionFrame(self)
         self.create_widgets()
 
     def create_widgets(self):
@@ -38,3 +38,6 @@ class Account(CTkFrame):
         label_sold.pack(pady=12, padx=100)
 
         self.transaction.create_labels(frame3,self.master.get_transaction_list())
+
+    def set_id_transaction(self,id_transaction):
+        self.master.set_id_transaction(id_transaction)
