@@ -50,3 +50,6 @@ INSERT INTO transaction (user_id, name, description, amount, category_id, type, 
 
 ALTER TABLE user
 ADD is_overdraft BOOLEAN DEFAULT 0;
+
+ALTER TABLE user
+CHANGE is_overdraft overdraft INT DEFAULT 0;
