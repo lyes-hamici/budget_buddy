@@ -34,6 +34,7 @@ class Window(ctk.CTk):
         self.value_password_confirm = ctk.StringVar()
         self.value_remember_me = ctk.BooleanVar()
         self.balance = ctk.DoubleVar()
+        self.overdraft = ctk.IntVar()
         self.asking_for_creation = False
         self.add_transaction = False
         # Variables for the account page
