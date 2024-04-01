@@ -218,7 +218,10 @@ class Transaction_repository:
         """
         query = "SELECT SUM(amount) FROM transaction WHERE user_id = %s"
         result = self.db.query(query, (user_id,))
-        response = result[0][0]
+        if result[0][0] is None:
+            response = 0
+        else:
+            response = result[0][0]
         return response
     
     def calculate_balance_by_date(self, user_id, date):
