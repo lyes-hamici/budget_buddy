@@ -28,6 +28,11 @@ class Controller:
                 self.remove_transaction(self.view.id_transaction)
                 self.view.id_transaction = None
                 self.get_all_transactions()
+                """self.view.account.update_labels()"""
+                self.flush_variables()
+                self.view.account.pack_forget()
+                self.get_all_transactions()
+                self.view.update_account_page()
                 self.get_graph()
             if self.view.add_transaction == True:
                 self.add_transaction(   self.view.transaction.get_entry_name_text(),
@@ -205,6 +210,7 @@ class Controller:
         self.Transaction_repository.create_transaction(self.user.user_id, name, description, amount, category, date)
 
     def remove_transaction(self, id_transaction):
+        print("remove transaction", id_transaction)
         self.Transaction_repository.delete_transaction(id_transaction)
 
     #=================GRAPHIC METHODS=======================#
