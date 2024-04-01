@@ -48,3 +48,5 @@ INSERT INTO transaction (user_id, name, description, amount, category_id, type, 
 (1, 'Bread', 'Bought bread', -1.00, 7, 0, '2021-01-07 12:00:00'),
 (1, 'Salary', 'Received salary', 1000.00, 7, 1, '2021-01-08 12:00:00');
 
+ALTER TABLE user
+ADD is_overdraft BOOLEAN DEFAULT 0;
