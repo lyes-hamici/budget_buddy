@@ -43,6 +43,8 @@ class Window(ctk.CTk):
         # Variables for the graphic page
         self.axis_x_graph_list = []
         self.axis_y_graph_list = []
+        # Variables for the dashboard
+        self.logout_request = False
 
         
         
@@ -154,6 +156,13 @@ class Window(ctk.CTk):
         This method sets the value of the overdraft.
         '''
         self.overdraft = value
+
+    def set_logout_request(self, value):
+        '''
+        This method sets the value of the logout request.
+        '''
+        self.logout_request = value
+
     
     #=================DISPLAY METHODS=======================#
 
