@@ -37,13 +37,13 @@ class User_repository:
         response = self.db.query(query, (email,))
         return User(*response[0])
     
-    def get_if_overdraft(self, user_id):
+    def get_overdraft(self, user_id):
         """
         Get the overdraft status of the user.
         Params: the email of the user.
         Returns: Boolean - True if the user has the overdraft, False if not.
         """
-        query = "SELECT is_overdraft FROM user WHERE id = %s"
+        query = "SELECT overdraft FROM user WHERE id = %s"
         response = self.db.query(query, (user_id,))
         return response[0][0]
 
@@ -61,14 +61,14 @@ class User_repository:
         else:
             return False
     
-    def set_overdraft(self, user_id, is_overdraft):
+    def set_overdraft(self, user_id, overdraft):
         """
         Set the overdraft status of the user.
         Params: the user_id and the overdraft status.
         Returns: Boolean - True if the overdraft status is set, False if not.
         """
-        query = "UPDATE user SET is_overdraft = %s WHERE id = %s"
-        self.db.execute(query, (is_overdraft, user_id))
+        query = "UPDATE user SET overdraft = %s WHERE id = %s"
+        self.db.execute(query, (overdraft, user_id))
         return True
 #================AUTHENTICATION=======================#
     def connect_user(self, email, password):
