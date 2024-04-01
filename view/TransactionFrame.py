@@ -31,7 +31,7 @@ class TransactionFrame(CTkFrame):
         frame_transaction.pack(pady=5, fill=ctk.X, padx=5)
 
         # Ajout des boutons
-        button1 = ctk.CTkButton(master=frame_transaction, text="Remove", command=self.on_remove_transaction_button_click(i[0]))
+        button1 = ctk.CTkButton(master=frame_transaction, text="Remove", command=lambda: self.on_remove_transaction_button_click(i[0]))
         button1.pack(side="right", anchor="ne", padx=5, pady=5)
 
         button2 = ctk.CTkButton(master=frame_transaction, text="Modify")
@@ -61,5 +61,4 @@ class TransactionFrame(CTkFrame):
         Args:
             id_transaction: The id of the transaction to remove.
         '''
-        print("Remove transaction", id_transaction)
         self.master.set_id_transaction(id_transaction)
