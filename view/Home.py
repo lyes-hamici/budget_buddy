@@ -17,6 +17,7 @@ class Home(CTkFrame):
         
     def determine_bg_color(self):
         if float(self.master.get_balance()) < self.master.get_overdraft():
+            self.fg_color = "white"
             return "red"
         else:
             return "azure3"
