@@ -5,8 +5,6 @@ from .TransactionFrame import TransactionFrame
 class Account(CTkFrame):
     def __init__(self,master):
         super().__init__(master)
-        self.running = True
-        self.account_balance = 0
         self.transaction = TransactionFrame()
         self.create_widgets()
 

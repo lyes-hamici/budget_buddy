@@ -19,7 +19,7 @@ class Window(ctk.CTk):
         self.title("Tkinter MVC")
         self.geometry("1280x720")
         self.resizable(False, False)
-        self.config(bg="green")
+        self.config(bg="black")
         self.protocol("WM_DELETE_WINDOW", self.quit)
         ctk.set_appearance_mode("system")
         ctk.set_default_color_theme("blue")

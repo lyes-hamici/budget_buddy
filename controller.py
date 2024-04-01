@@ -13,9 +13,10 @@ class Controller:
         self.view = Window()
         self.old_value_display_page = 0
         self.thread_running = True
+        self.user = None
         self.thread = threading.Thread(target=self.observer)
         self.thread.start()
-        self.user = None
+        
 
     def set_old_value_display_page(self, value):
         self.old_value_display_page = value
@@ -24,6 +25,12 @@ class Controller:
     def observer(self):
         while self.thread_running:
             if self.view.value_display_page != 0:
+                self.flush_variables()
+                if self.user is not None:  
+                        self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
+                        self.get_all_transactions()
+                        print(" from view transaction list = ", self.view.transaction_list)
+                        self.get_graph()
                 self.forget_display()
                 self.change_display()
             time.sleep(0.1)
@@ -119,7 +126,7 @@ class Controller:
             self.view.graphics.pack_forget()
         elif self.old_value_display_page == 6:
             self.view.dashboard.pack_forget()
-            self.view.graphics.pack_forget()
+            self.view.transaction.pack_forget()
     
     #=================LOGIN METHODS=======================#
 
@@ -179,12 +186,31 @@ class Controller:
             self.view.transaction_list.append(transaction.return_list())
         self.view.transaction_list.reverse()
 
+    def three_last_transaction(self):
+        transaction_list = self.Transaction_repository.get_last_three_transactions(self.user.user_id)
+        for transaction in transaction_list:
+            self.view.transaction_list.append(transaction.return_list())
+        self.view.transaction_list.reverse()
+
     #=================GRAPHIC METHODS=======================#
     def get_graph(self):
         self.graph = Graph(self.user.user_id, self.Transaction_repository)
         self.view.axis_y_graph_list = self.graph.get_30_days_balance_list()
         self.view.axis_x_graph_list = self.graph.get_list_dates()
-    
+
+    #=================FLUSH VARIABLES=======================#
+    def flush_variables(self):
+        self.view.value_name = ""
+        self.view.value_firstname = ""
+        self.view.value_mail = ""
+        self.view.value_mail_confirm = ""
+        self.view.value_password = ""
+        self.view.value_password_confirm = ""
+        self.view.balance = 0
+        self.view.asking_for_creation = False
+        self.view.transaction_list = []
+        self.view.axis_x_graph_list = []
+        self.view.axis_y_graph_list = []    
         
 # transaction_list = self.Transaction_repository.get_all_transactions_of_user(1)
 # for transaction in transaction_list:
