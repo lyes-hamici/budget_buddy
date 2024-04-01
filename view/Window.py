@@ -35,6 +35,7 @@ class Window(ctk.CTk):
         self.value_remember_me = ctk.BooleanVar()
         self.balance = ctk.DoubleVar()
         self.asking_for_creation = False
+        self.add_transaction = False
         # Variables for the account page
         self.transaction_list = []
         # Variables for the graphic page
@@ -124,6 +125,12 @@ class Window(ctk.CTk):
         This method sets the value of the asking for creation.
         '''
         self.asking_for_creation = value
+
+    def set_add_transaction(self, value):
+        '''
+        This method sets the value of the add transaction.
+        '''
+        self.add_transaction = value
     
     #=================DISPLAY METHODS=======================#
 
