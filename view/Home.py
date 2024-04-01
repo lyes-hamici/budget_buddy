@@ -5,7 +5,7 @@ from .TransactionFrame import TransactionFrame
 class Home(CTkFrame):
     def __init__(self,master):
         super().__init__(master)
-        self.transaction = TransactionFrame()   
+        self.transaction = TransactionFrame(self)   
         self.create_widgets()
 
 
