@@ -24,6 +24,11 @@ class Controller:
 
     def observer(self):
         while self.thread_running:
+            if self.view.id_transaction:
+                self.remove_transaction(self.view.id_transaction)
+                self.view.id_transaction = None
+                self.get_all_transactions()
+                self.get_graph()
             if self.view.add_transaction == True:
                 self.add_transaction(   self.view.transaction.get_entry_name_text(),
                                         self.view.transaction.get_entry_description_text(),
@@ -202,6 +207,9 @@ class Controller:
 
     def add_transaction(self, name, description, amount, category, date):
         self.Transaction_repository.create_transaction(self.user.user_id, name, description, amount, category, date)
+
+    def remove_transaction(self, id_transaction):
+        self.Transaction_repository.delete_transaction(id_transaction)
 
     #=================GRAPHIC METHODS=======================#
     def get_graph(self):
