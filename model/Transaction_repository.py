@@ -10,8 +10,9 @@ class Transaction_repository:
         Creates a transaction in the database.
         Params: user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, type: The type of the transaction, date: The date of the transaction
         """
-        category_query = "SELECT id FROM category WHERE name = %s"
-        category_id = self.db.query(category_query, (category_name,))[0][0]
+        category_id = self.get_category_id(category_name)
+        if category_id is None:
+            raise ValueError(f"No category found with name {category_name}")
     
         if float(amount) < 0:
             type = 0
@@ -25,8 +26,10 @@ class Transaction_repository:
         Updates a transaction in the database.
         Params: transaction_id: The ID of the transaction, user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, date: The date of the transaction
         """
-        category_query = "SELECT id FROM category WHERE name = %s"
-        category_id = self.db.query(category_query, (category_name,))[0][0]
+        category_id = self.get_category_id(category_name)
+        if category_id is None:
+            raise ValueError(f"No category found with name {category_name}")
+        
         query = "UPDATE transaction SET user_id = %s, name = %s, description = %s, amount = %s, category_id = %s, date = %s WHERE id = %s"
         self.db.execute(query, (user_id, name, description, amount, category_id, date, transaction_id))
     
@@ -197,6 +200,15 @@ class Transaction_repository:
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
     
+    def get_category_id(self, category_name):
+        """
+        Retrieves the id of a category from the database.
+        Params: category_name: The name of the category
+        Returns: int - The id of the category
+        """
+        query = "SELECT id FROM category WHERE name = %s"
+        result = self.db.query(query, (category_name,))
+        return result[0][0] if result else None
     #=================LOGIC - OPERATIONS=======================#
     def calculate_balance(self, user_id):
         """
