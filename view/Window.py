@@ -38,6 +38,7 @@ class Window(ctk.CTk):
         self.add_transaction = False
         # Variables for the account page
         self.transaction_list = []
+        self.id_transaction = None
         # Variables for the graphic page
         self.axis_x_graph_list = []
         self.axis_y_graph_list = []
@@ -131,6 +132,15 @@ class Window(ctk.CTk):
         This method sets the value of the add transaction.
         '''
         self.add_transaction = value
+
+    def set_id_transaction(self, id_transaction):
+        '''
+        This method sets the id of the transaction.
+
+        args:
+            id_transaction : [int] - The id of the transaction.
+        '''
+        self.id_transaction = id_transaction
     
     #=================DISPLAY METHODS=======================#
 
