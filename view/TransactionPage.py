@@ -19,10 +19,18 @@ class TrasactionPage(CTkFrame):
         frame2 = CTkFrame(master=self, fg_color="white", width=700, corner_radius=0)
         frame2.pack(expand=True, side=ctk.TOP, fill='both')
 
+        frame3 = CTkFrame(master=frame2, fg_color="white", border_color="#565B5E", border_width=2) 
+
         # Left side - Entry widgets
         entry_name = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="name",placeholder_text_color="black",text_color="black")
         entry_description = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Description",placeholder_text_color="black",text_color="black")
-        entry_category = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Category",placeholder_text_color="black",text_color="black")
+        
+        label_category = CTkLabel(master=frame3, text=f'Choose a category : ', text_color='black')
+        
+        combobox_category = ctk.CTkComboBox(master=frame3, values=["Food", "Health", "Leisure", "Transport", "Lodging", "Tax", "Daily expenses", "Salary", "Other"],
+                                            command="""combobox_callback""")
+        combobox_category.set("None")
+
         entry_value = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Values",placeholder_text_color="black",text_color="black")
         entry_date = CTkEntry(master=frame2, fg_color="white", width=20,placeholder_text="Date",placeholder_text_color="black",text_color="black")
         
@@ -34,18 +42,19 @@ class TrasactionPage(CTkFrame):
 
         entry_name.pack(pady=10, padx=10,fill = ctk.X)
         entry_description.pack(pady=10, padx=10,fill = ctk.X)
-        entry_category.pack(pady=10, padx=10,fill = ctk.X)
+        frame3.pack(pady=10, padx=10,fill = ctk.X)
+        label_category.pack(pady=10, padx=10, fill = ctk.X, side=ctk.LEFT)
+        combobox_category.pack(pady=10, padx=10, fill = ctk.X, side=ctk.LEFT)
         entry_value.pack(pady=10, padx=10,fill = ctk.X)
         entry_date.pack(pady=10, padx=10,fill = ctk.X)
 
         # Getter methods for entry widgets
         self.entry_name = entry_name
         self.entry_description = entry_description
-        self.entry_category = entry_category
+        self.entry_category = combobox_category
         self.entry_value = entry_value
         self.entry_date = entry_date
-   
-
+        
     # Getter methods to retrieve the content of each entry
     def get_entry_name_text(self):
         return self.entry_name.get()
