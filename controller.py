@@ -31,9 +31,18 @@ class Controller:
                 self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
                 self.get_all_transactions()
                 print("transaction list = ", self.view.transaction_list)"""
+            self.update_overdraft()
 
     
-   
+    def update_overdraft(self):
+        if self.user is not None:
+            balance = self.Transaction_repository.calculate_balance(self.user.user_id)
+            if balance < 0:
+                self.user.is_overdraft = True
+            else:
+                self.user.is_overdraft = False
+            self.User_repository.set_overdraft(self.user.user_id, self.user.is_overdraft)
+            # self.view.set_overdraft(self.user.is_overdraft)
     
     def change_display(self):
             if self.view.value_display_page == 1:
