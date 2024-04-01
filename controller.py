@@ -110,7 +110,7 @@ class Controller:
             self.view.graphics.pack_forget()
         elif self.old_value_display_page == 6:
             self.view.dashboard.pack_forget()
-            self.view.graphics.pack_forget()
+            self.view.transaction.pack_forget()
     
     #=================LOGIN METHODS=======================#
 
