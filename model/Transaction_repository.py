@@ -5,11 +5,14 @@ class Transaction_repository:
     def __init__(self,db):
         self.db = db
     #=================SETTERS=======================#
-    def create_transaction(self, user_id, name, description, amount, category_id, date=datetime.now()): #if don't use condition put type as parameter and erase the condition
+    def create_transaction(self, user_id, name, description, amount, category_name, date=datetime.now()): #if don't use condition put type as parameter and erase the condition
         """
         Creates a transaction in the database.
         Params: user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, type: The type of the transaction, date: The date of the transaction
         """
+        category_query = "SELECT id FROM category WHERE name = %s"
+        category_id = self.db.query(category_query, (category_name,))[0][0]
+    
         if float(amount) < 0:
             type = 0
         else:
@@ -17,11 +20,13 @@ class Transaction_repository:
         query = "INSERT INTO transaction (user_id, name, description, amount, category_id, type, date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         self.db.execute(query, (user_id, name, description, amount, category_id, type, date))
     
-    def update_transaction(self, transaction_id, user_id, name, description, amount, category_id, date):
+    def update_transaction(self, transaction_id, user_id, name, description, amount, category_name, date):
         """
         Updates a transaction in the database.
         Params: transaction_id: The ID of the transaction, user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, date: The date of the transaction
         """
+        category_query = "SELECT id FROM category WHERE name = %s"
+        category_id = self.db.query(category_query, (category_name,))[0][0]
         query = "UPDATE transaction SET user_id = %s, name = %s, description = %s, amount = %s, category_id = %s, date = %s WHERE id = %s"
         self.db.execute(query, (user_id, name, description, amount, category_id, date, transaction_id))
     
