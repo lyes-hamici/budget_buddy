@@ -37,11 +37,10 @@ class Controller:
             if self.view.value_display_page != 0:
                 self.flush_variables()
                 if self.user is not None:
-                        self.set_overdraft()  
-                        self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
-                        self.get_all_transactions()
-                        print(" from view transaction list = ", self.view.transaction_list)
-                        self.get_graph()
+                    self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
+                    self.get_all_transactions()
+                    print(" from view transaction list = ", self.view.transaction_list)
+                    self.get_graph()
                 self.forget_display()
                 self.change_display()
             time.sleep(0.1)
@@ -51,9 +50,9 @@ class Controller:
                 print("transaction list = ", self.view.transaction_list)"""
     
     def set_overdraft(self):
-        overdraft = self.User_repository.get_overdraft(self.user.user_id)
-        if self.view.overdraft.get() != overdraft:
-            self.view.overdraft.set(overdraft)
+        if self.user.overdraft != self.User_repository.get_overdraft(self.user.user_id):
+            self.user.overdraft = self.User_repository.get_overdraft(self.user.user_id)
+        self.view.set_overdraft(self.user.overdraft)
         
     def change_display(self):
             if self.view.value_display_page == 1:
@@ -83,6 +82,7 @@ class Controller:
                 if self.login():
                     if self.user is not None:  
                         self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
+                        self.set_overdraft()
                         self.get_all_transactions()
                         print(" from view transaction list = ", self.view.transaction_list)
                         self.get_graph()
