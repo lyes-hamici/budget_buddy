@@ -201,7 +201,12 @@ class Window(ctk.CTk):
         self.account = Account(self)
         self.account.pack(side='left', expand=True, fill='both')
 
-
+    def update_account_page(self):
+        '''
+        This method updates the account page.
+        '''
+        self.account = Account(self)
+        self.account.pack(side='left', expand=True, fill='both')
 
     def display_graphic_page(self):
         self.display_dashboard()
