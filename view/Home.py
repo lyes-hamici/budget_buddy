@@ -1,10 +1,11 @@
 import customtkinter as ctk
 from customtkinter import CTkFrame 
+from .TransactionFrame import TransactionFrame
 
 class Home(CTkFrame):
     def __init__(self,master):
         super().__init__(master)
-        self.running = True
+        self.transaction = TransactionFrame()   
         self.create_widgets()
 
 
@@ -19,8 +20,7 @@ class Home(CTkFrame):
         label_sold = ctk.CTkLabel(master=frame, text=f'Balance : {self.master.get_balance()} €', font=('helvetica', 64))#Replace self.balance with a the output of a function for get the sold of the account
         label_sold.pack(pady=12, padx=100)
 
-        label =  ctk.CTkLabel(master=frame2, text='last transaction', font=('helvetica', 30))#Replace text with a the output of a function for get the 3 last transaction
-        label.pack(pady=12, padx=100)
+        self.transaction.create_labels(frame2,self.master.get_transaction_list())
 
 
 
