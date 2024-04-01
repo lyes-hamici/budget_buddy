@@ -34,6 +34,7 @@ class Window(ctk.CTk):
         self.value_password_confirm = ctk.StringVar()
         self.value_remember_me = ctk.BooleanVar()
         self.balance = ctk.DoubleVar()
+        self.overdraft = ctk.DoubleVar()
         self.asking_for_creation = False
         self.add_transaction = False
         # Variables for the account page
@@ -90,6 +91,12 @@ class Window(ctk.CTk):
         '''
         return self.axis_y_graph_list
     
+    def get_overdraft(self):
+        '''
+        This method returns the overdraft.
+        '''
+        return self.overdraft
+    
     #=================SETTERS=======================#
     def set_value_mail(self, value):
         '''
@@ -141,6 +148,12 @@ class Window(ctk.CTk):
             id_transaction : [int] - The id of the transaction.
         '''
         self.id_transaction = id_transaction
+    
+    def set_overdraft(self, value):
+        '''
+        This method sets the value of the overdraft.
+        '''
+        self.overdraft = value
     
     #=================DISPLAY METHODS=======================#
 

@@ -5,18 +5,31 @@ from .TransactionFrame import TransactionFrame
 class Home(CTkFrame):
     def __init__(self,master):
         super().__init__(master)
+        self.fg_color = self.determine_fg_color()
+        self.bg_color = self.determine_bg_color()
         self.create_widgets()
 
-
+    def determine_fg_color(self):
+        if float(self.master.get_balance()) < 0:
+            return "red"
+        else:
+            return "white"
+        
+    def determine_bg_color(self):
+        if float(self.master.get_balance()) < self.master.get_overdraft():
+            return "red"
+        else:
+            return "azure3"
+        
     def create_widgets(self):
-        frame = CTkFrame(master=self, fg_color="azure3", border_width=0, width=700)
-        frame.pack(expand=False, side=ctk.TOP,pady = 10)
+        frame = CTkFrame(master=self, fg_color=self.bg_color, border_width=0, width=700)
+        frame.pack(expand=False, side=ctk.TOP,pady = 50)
 
 
         frame2 = CTkFrame(master=self,fg_color="azure3", border_width=0, width=7000)
         frame2.pack(expand=False, side=ctk.LEFT,pady = 15, padx = 10 )
 
-        label_sold = ctk.CTkLabel(master=frame, text=f'Balance : {self.master.get_balance()} €', font=('helvetica', 64))#Replace self.balance with a the output of a function for get the sold of the account
+        label_sold = ctk.CTkLabel(master=frame, text=f'Balance : {self.master.get_balance()} €', font=('helvetica', 64), text_color=self.fg_color)#Replace self.balance with a the output of a function for get the sold of the account
         label_sold.pack(pady=12, padx=100)
 
         for i in range(len(self.master.get_transaction_list()[0:3])):
