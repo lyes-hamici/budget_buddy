@@ -1,9 +1,9 @@
 import customtkinter as ctk
 from customtkinter import CTkLabel, CTkFrame
 
-class TransactionFrame():
-    def __init__(self):
-        pass
+class TransactionFrame(CTkFrame):
+    def __init__(self,master):
+        super().__init__(master)
 
     def create_labels(self, frame, transaction_list):
         '''
@@ -31,7 +31,7 @@ class TransactionFrame():
         frame_transaction.pack(pady=5, fill=ctk.X, padx=5)
 
         # Ajout des boutons
-        button1 = ctk.CTkButton(master=frame_transaction, text="Remove")
+        button1 = ctk.CTkButton(master=frame_transaction, text="Remove", command=self.on_remove_transaction_button_click(i[0]))
         button1.pack(side="right", anchor="ne", padx=5, pady=5)
 
         button2 = ctk.CTkButton(master=frame_transaction, text="Modify")
@@ -52,3 +52,14 @@ class TransactionFrame():
         label_text_values = f"Values : {i[4]} €"
         label_values = CTkLabel(master=frame_transaction, text=label_text_values, font=('helvetica', 14))
         label_values.pack(side="right", padx=5, pady=5, anchor="se")
+
+    
+    def on_remove_transaction_button_click(self, id_transaction):
+        '''
+        Function that removes a transaction from the account.
+        
+        Args:
+            id_transaction: The id of the transaction to remove.
+        '''
+        print("Remove transaction", id_transaction)
+        self.master.set_id_transaction(id_transaction)
