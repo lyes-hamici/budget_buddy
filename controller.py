@@ -24,8 +24,19 @@ class Controller:
 
     def observer(self):
         while self.thread_running:
+            if self.view.add_transaction == True:
+                self.add_transaction(   self.view.transaction.get_entry_name_text(),
+                                        self.view.transaction.get_entry_description_text(),
+                                        self.view.transaction.get_entry_value_text(), 
+                                        self.view.transaction.get_entry_category_text(), 
+                                        self.view.transaction.get_entry_date_text()
+                                    )
+                self.view.add_transaction = False
+                self.get_all_transactions()
+                self.get_graph()
             if self.view.value_display_page != 0:
                 self.flush_variables()
+                self.update_overdraft()
                 if self.user is not None:  
                         self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
                         self.get_all_transactions()
@@ -38,8 +49,6 @@ class Controller:
                 self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
                 self.get_all_transactions()
                 print("transaction list = ", self.view.transaction_list)"""
-            self.update_overdraft()
-
     
     def update_overdraft(self):
         if self.user is not None:
@@ -191,6 +200,9 @@ class Controller:
         for transaction in transaction_list:
             self.view.transaction_list.append(transaction.return_list())
         self.view.transaction_list.reverse()
+
+    def add_transaction(self, name, description, amount, category, date):
+        self.Transaction_repository.create_transaction(self.user.user_id, name, description, amount, category, date)
 
     #=================GRAPHIC METHODS=======================#
     def get_graph(self):

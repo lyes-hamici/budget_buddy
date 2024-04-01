@@ -20,7 +20,7 @@ class Home(CTkFrame):
         label_sold = ctk.CTkLabel(master=frame, text=f'Balance : {self.master.get_balance()} €', font=('helvetica', 64))#Replace self.balance with a the output of a function for get the sold of the account
         label_sold.pack(pady=12, padx=100)
 
-        self.transaction.create_labels(frame2,self.master.get_transaction_list())
+        self.transaction.create_labels(frame2,self.master.get_transaction_list()[0:3])
 
 
 
