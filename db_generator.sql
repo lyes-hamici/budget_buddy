@@ -53,3 +53,14 @@ ADD is_overdraft BOOLEAN DEFAULT 0;
 
 ALTER TABLE user
 CHANGE is_overdraft overdraft INT DEFAULT 0;
+
+UPDATE category SET name = 'Food' WHERE id = 1;
+UPDATE category SET name = 'Health' WHERE id = 2;
+UPDATE category SET name = 'Leisure' WHERE id = 3;
+UPDATE category SET name = 'Transport' WHERE id = 4;
+UPDATE category SET name = 'Lodging' WHERE id = 5;
+UPDATE category SET name = 'Tax' WHERE id = 6;
+UPDATE category SET name = 'Daily expenses' WHERE id = 7;
+
+INSERT INTO category (name) VALUES ('Salary');
+INSERT INTO category (name) VALUES ('Other');
