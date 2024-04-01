@@ -21,7 +21,7 @@ class Transaction_repository:
         """
         Retrieves all transactions of a specific user from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_name, type, date)
+        Returns: [Transactions] - (transaction_id, user_id, name, description, amount, category_name, type, date)
         """
         query = """
         SELECT t.id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
@@ -36,7 +36,7 @@ class Transaction_repository:
         """
         Retrieves all transactions of the last month from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
         query = "SELECT * FROM transaction WHERE user_id = %s AND date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)"
         response = self.db.query(query, (user_id,))
@@ -56,7 +56,7 @@ class Transaction_repository:
         """
         Retrieves all expenses from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, 0, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, 0, date)
         """
         query = "SELECT * FROM transaction WHERE type = 0 and user_id = %s"
         response = self.db.query(query, (user_id,))
@@ -66,7 +66,7 @@ class Transaction_repository:
         """
         Retrieves all incomes from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, 1, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, 1, date)
         """
         query = "SELECT * FROM transaction WHERE type = 1 and user_id = %s"
         reponse = self.db.query(query, (user_id,))
@@ -76,7 +76,7 @@ class Transaction_repository:
         """
         Retrieves all transactions of a specific category from the database.
         Params: user_id: The ID of the user, category_id: The ID of the category
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
         query = "SELECT * FROM transaction WHERE user_id = %s AND category_id = %s"
         response = self.db.query(query, (user_id, category_id))
@@ -86,7 +86,7 @@ class Transaction_repository:
         """
         Retrieves all transactions of a specific date from the database.
         Params: user_id: The ID of the user, date: The date of the transactions
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
         query = "SELECT * FROM transaction WHERE user_id = %s AND date = %s"
         response = self.db.query(query, (user_id, date))
@@ -96,7 +96,7 @@ class Transaction_repository:
         """
         Retrieves all transactions between two dates from the database.
         Params: user_id: The ID of the user, start_date, end_date
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
         query = "SELECT * FROM transaction WHERE user_id = %s AND date BETWEEN %s AND %s"
         response = self.db.query(query, (user_id, start_date, end_date))
@@ -106,7 +106,7 @@ class Transaction_repository:
         """
         Retrieves all transactions sorted by date from the database.
         Params: user_id: The ID of the user, reverse: True to sort descending
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
         query = "SELECT * FROM transaction WHERE user_id = %s ORDER BY date"
         if reverse:
@@ -118,7 +118,7 @@ class Transaction_repository:
         """
         Retrieves all transactions sorted by amount from the database.
         Params: user_id: The ID of the user, reverse: True to sort descending
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
         query = "SELECT * FROM transaction WHERE user_id = %s ORDER BY amount"
         if reverse:
@@ -131,7 +131,7 @@ class Transaction_repository:
         """
         Calculates the balance of a user.
         Params: user_id: The ID of the user
-        Returns: [float] - The balance
+        Returns: float - The balance
         """
         query = "SELECT SUM(amount) FROM transaction WHERE user_id = %s"
         result = self.db.query(query, (user_id,))
@@ -153,7 +153,7 @@ class Transaction_repository:
         """
         Calculates the income of a user.
         Params: user_id: The ID of the user
-        Returns: [float] - The income
+        Returns: float - The income
         """
         query = "SELECT SUM(amount) FROM transaction WHERE user_id = %s AND type = 1"
         result = self.db.query(query, (user_id,))
@@ -164,7 +164,7 @@ class Transaction_repository:
         """
         Calculates the expenses of a user.
         Params: user_id: The ID of the user
-        Returns: [float] - The expenses
+        Returns: float - The expenses
         """
         query = "SELECT SUM(amount) FROM transaction WHERE user_id = %s AND type = 0"
         result = self.db.query(query, (user_id,))
