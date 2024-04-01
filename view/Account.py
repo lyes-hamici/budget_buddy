@@ -31,13 +31,16 @@ class Account(CTkFrame):
         button5 = ctk.CTkButton(master=frame2, text="4")
         button5.pack(side='left',padx=30, pady=5)
 
-        frame3 = CTkScrollableFrame(master=self,fg_color="white",  width=7000,corner_radius=0)
-        frame3.pack(expand=True, side=ctk.TOP,fill = 'both')
+        self.frame3 = CTkScrollableFrame(master=self,fg_color="white",  width=7000,corner_radius=0)
+        self.frame3.pack(expand=True, side=ctk.TOP,fill = 'both')
 
         label_sold = ctk.CTkLabel(master=frame, text=f'Available balance : {self.master.get_balance()} €', font=('helvetica', 30))#Replace self.account_balance with a the output of a function for get the sold of the account
         label_sold.pack(pady=12, padx=100)
 
-        self.transaction.create_labels(frame3,self.master.get_transaction_list())
+        self.transaction.create_labels(self.frame3,self.master.get_transaction_list())
 
     def set_id_transaction(self,id_transaction):
         self.master.set_id_transaction(id_transaction)
+
+    def update_labels(self):
+        self.transaction.create_labels(self.frame3, self.master.get_transaction_list())
