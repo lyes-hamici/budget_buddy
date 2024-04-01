@@ -39,4 +39,5 @@ class Dashboard(CTkFrame):
         self.master.set_value_display_page(6)
 
     def on_logout_button_click(self):
-        pass
+        print("logout button clicked")
+        self.master.set_logout_request(True)
