@@ -1,10 +1,11 @@
 from model import Transaction
+import datetime
 
 class Transaction_repository:
     def __init__(self,db):
         self.db = db
     #=================SETTERS=======================#
-    def create_transaction(self, user_id, name, description, amount, category_id, date): #if don't use condition put type as parameter and erase the condition
+    def create_transaction(self, user_id, name, description, amount, category_id, date=datetime.now()): #if don't use condition put type as parameter and erase the condition
         """
         Creates a transaction in the database.
         Params: user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, type: The type of the transaction, date: The date of the transaction
@@ -15,13 +16,29 @@ class Transaction_repository:
             type = 1
         query = "INSERT INTO transaction (user_id, name, description, amount, category_id, type, date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         self.db.execute(query, (user_id, name, description, amount, category_id, type, date))
+    
+    def update_transaction(self, transaction_id, user_id, name, description, amount, category_id, date):
+        """
+        Updates a transaction in the database.
+        Params: transaction_id: The ID of the transaction, user_id: The ID of the user, name: The name of the transaction, description: The description of the transaction, amount: The amount of the transaction, category_id: The ID of the category, date: The date of the transaction
+        """
+        query = "UPDATE transaction SET user_id = %s, name = %s, description = %s, amount = %s, category_id = %s, date = %s WHERE id = %s"
+        self.db.execute(query, (user_id, name, description, amount, category_id, date, transaction_id))
+    
+    def delete_transaction(self, transaction_id):
+        """
+        Deletes a transaction from the database.
+        Params: transaction_id: The ID of the transaction
+        """
+        query = "DELETE FROM transaction WHERE id = %s"
+        self.db.execute(query, (transaction_id,))
         
     #=================GETTERS=======================#
     def get_all_transactions_of_user(self, user_id):
         """
         Retrieves all transactions of a specific user from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_name, type, date)
+        Returns: [Transactions] - (transaction_id, user_id, name, description, amount, category_name, type, date)
         """
         query = """
         SELECT t.id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
@@ -36,9 +53,14 @@ class Transaction_repository:
         """
         Retrieves all transactions of the last month from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
-        query = "SELECT * FROM transaction WHERE user_id = %s AND date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)"
+        query = """
+        SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.user_id = %s AND t.date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+        """
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
     
@@ -48,7 +70,14 @@ class Transaction_repository:
         Params: user_id: The ID of the user
         Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
-        query = "SELECT * FROM transaction WHERE user_id = %s ORDER BY date DESC LIMIT 3"
+        query = """
+            SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+            FROM transaction t
+            INNER JOIN category c ON t.category_id = c.id
+            WHERE t.user_id = %s
+            ORDER BY t.date DESC
+            LIMIT 3
+            """
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
         
@@ -56,9 +85,14 @@ class Transaction_repository:
         """
         Retrieves all expenses from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, 0, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, 0, date)
         """
-        query = "SELECT * FROM transaction WHERE type = 0 and user_id = %s"
+        query = """
+        SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.type = 0 AND t.user_id = %s
+        """
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
     
@@ -66,9 +100,14 @@ class Transaction_repository:
         """
         Retrieves all incomes from the database.
         Params: user_id: The ID of the user
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, 1, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, 1, date)
         """
-        query = "SELECT * FROM transaction WHERE type = 1 and user_id = %s"
+        query = """
+        SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.type = 1 AND t.user_id = %s
+        """
         reponse = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in reponse]
     
@@ -76,9 +115,14 @@ class Transaction_repository:
         """
         Retrieves all transactions of a specific category from the database.
         Params: user_id: The ID of the user, category_id: The ID of the category
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
-        query = "SELECT * FROM transaction WHERE user_id = %s AND category_id = %s"
+        query = """
+        SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.user_id = %s AND c.id = %s
+        """
         response = self.db.query(query, (user_id, category_id))
         return [Transaction(*row) for row in response]
     
@@ -86,9 +130,14 @@ class Transaction_repository:
         """
         Retrieves all transactions of a specific date from the database.
         Params: user_id: The ID of the user, date: The date of the transactions
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
-        query = "SELECT * FROM transaction WHERE user_id = %s AND date = %s"
+        query = """
+        SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.user_id = %s AND t.date = %s
+        """
         response = self.db.query(query, (user_id, date))
         return [Transaction(*row) for row in response]
     
@@ -96,9 +145,14 @@ class Transaction_repository:
         """
         Retrieves all transactions between two dates from the database.
         Params: user_id: The ID of the user, start_date, end_date
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
-        query = "SELECT * FROM transaction WHERE user_id = %s AND date BETWEEN %s AND %s"
+        query = """
+        SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.user_id = %s AND t.date BETWEEN %s AND %s
+        """
         response = self.db.query(query, (user_id, start_date, end_date))
         return [Transaction(*row) for row in response]
     # Sorts
@@ -106,9 +160,15 @@ class Transaction_repository:
         """
         Retrieves all transactions sorted by date from the database.
         Params: user_id: The ID of the user, reverse: True to sort descending
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
-        query = "SELECT * FROM transaction WHERE user_id = %s ORDER BY date"
+        query = """
+        SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.user_id = %s
+        ORDER BY t.date
+        """
         if reverse:
             query += " DESC"
         response = self.db.query(query, (user_id,))
@@ -118,9 +178,15 @@ class Transaction_repository:
         """
         Retrieves all transactions sorted by amount from the database.
         Params: user_id: The ID of the user, reverse: True to sort descending
-        Returns: [tuple] - (transaction_id, user_id, name, description, amount, category_id, type, date)
+        Returns: [Transaction] - (transaction_id, user_id, name, description, amount, category_id, type, date)
         """
-        query = "SELECT * FROM transaction WHERE user_id = %s ORDER BY amount"
+        query = """
+        SELECT t.transaction_id, t.user_id, t.name, t.description, t.amount, c.name, t.type, t.date
+        FROM transaction t
+        INNER JOIN category c ON t.category_id = c.id
+        WHERE t.user_id = %s
+        ORDER BY t.amount
+        """
         if reverse:
             query += " DESC"
         response = self.db.query(query, (user_id,))
@@ -131,7 +197,7 @@ class Transaction_repository:
         """
         Calculates the balance of a user.
         Params: user_id: The ID of the user
-        Returns: [float] - The balance
+        Returns: float - The balance
         """
         query = "SELECT SUM(amount) FROM transaction WHERE user_id = %s"
         result = self.db.query(query, (user_id,))
@@ -153,7 +219,7 @@ class Transaction_repository:
         """
         Calculates the income of a user.
         Params: user_id: The ID of the user
-        Returns: [float] - The income
+        Returns: float - The income
         """
         query = "SELECT SUM(amount) FROM transaction WHERE user_id = %s AND type = 1"
         result = self.db.query(query, (user_id,))
@@ -164,7 +230,7 @@ class Transaction_repository:
         """
         Calculates the expenses of a user.
         Params: user_id: The ID of the user
-        Returns: [float] - The expenses
+        Returns: float - The expenses
         """
         query = "SELECT SUM(amount) FROM transaction WHERE user_id = %s AND type = 0"
         result = self.db.query(query, (user_id,))
