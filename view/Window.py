@@ -279,7 +279,7 @@ class Window(ctk.CTk):
         This method displays the dashboard.
         '''
         self.dashboard = Dashboard(self)
-        self.dashboard.pack(side='left', expand= True, fill='both')
+        self.dashboard.pack(side='left', expand= False, fill='both')
     
     def display_search_page(self):
         '''
