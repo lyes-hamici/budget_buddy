@@ -1,5 +1,5 @@
 from view import Window
-from model import Transaction_repository, User_repository, User
+from model import Transaction_repository, User_repository
 from services import Db, Graph
 
 import threading
@@ -46,7 +46,7 @@ class Controller:
             print("transaction list = ", self.view.transaction_list)
             print("transaction list = ", self.view.transaction_list)
 
-            
+
             if self.view.logout_request == True:
                 print("logout request from observer")
                 print("old value display page = ", self.old_value_display_page)
