@@ -6,6 +6,7 @@ from .Account import Account
 from .Dashboard import Dashboard
 from .GraphicFrame import GraphicFrame
 from .TransactionPage import TrasactionPage
+from .SearchPage import SearchPage
 
 class Window(ctk.CTk):
     '''
@@ -45,6 +46,10 @@ class Window(ctk.CTk):
         self.axis_y_graph_list = []
         # Variables for the dashboard
         self.logout_request = False
+        # Variables for the search page
+        self.search_request = False
+        self.search_category = ''
+        self.search_date = ''
 
         
         
@@ -99,6 +104,23 @@ class Window(ctk.CTk):
         '''
         return self.overdraft
     
+    def get_search_request(self):     
+        '''
+        This method returns the search request.
+        '''
+        return self.search_request
+    
+    def get_search_category(self):
+        '''
+        This method returns the search category.
+        '''
+        return self.search_category
+    
+    def get_search_date(self):
+        '''
+        This method returns the search date.
+        '''
+        return self.search_date
     #=================SETTERS=======================#
     def set_value_mail(self, value):
         '''
@@ -162,6 +184,24 @@ class Window(ctk.CTk):
         This method sets the value of the logout request.
         '''
         self.logout_request = value
+    
+    def set_search_request(self, value):
+        '''
+        This method sets the value of the search request.
+        '''
+        self.search_request = value
+    
+    def set_search_category(self, value):
+        '''
+        This method sets the value of the search category.
+        '''
+        self.search_category = value
+    
+    def set_search_date(self, value):
+        '''
+        This method sets the value of the search date.
+        '''
+        self.search_date = value
 
     
     #=================DISPLAY METHODS=======================#
@@ -234,6 +274,15 @@ class Window(ctk.CTk):
         '''
         self.dashboard = Dashboard(self)
         self.dashboard.pack(side='left', expand= True, fill='both')
+    
+    def display_search_page(self):
+        '''
+        this method displays the register page.
+        '''
+        self.display_dashboard()
+        self.search_frame = SearchPage(self)
+        self.search_frame.pack(fill='both', expand=True)
+    
 
     def main(self):
         '''

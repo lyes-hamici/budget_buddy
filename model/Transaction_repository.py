@@ -209,6 +209,29 @@ class Transaction_repository:
         query = "SELECT id FROM category WHERE name = %s"
         result = self.db.query(query, (category_name,))
         return result[0][0] if result else None
+    
+    def search_transaction(self, user_id, category_name = None, date = None):
+        """
+        Retrieves all transactions of a specific category and date from the database.
+        Params: user_id: The ID of the user, category_name: The name of the category, date: The date of the transactions
+        Returns: [Transaction]
+        """
+        query = "SELECT * FROM transaction WHERE user_id = %s"
+        params = [user_id]
+        
+        if category_name is not None:
+            print("enter on category", category_name)
+            category_id = self.get_category_id(category_name)
+            query += " AND category_id = %s"
+            params.append(category_id)
+            
+        if date is not None:
+            print("enter on date", date)
+            query += " AND date LIKE %s"
+            params.append(date  + '%')
+        
+        response = self.db.query(query, params)
+        return [Transaction(*row) for row in response]
     #=================LOGIC - OPERATIONS=======================#
     def calculate_balance(self, user_id):
         """
