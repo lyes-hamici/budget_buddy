@@ -12,7 +12,7 @@ class GraphicFrame(CTkFrame):
 
     def create_widgets(self):
         
-        frame_graph = CTkFrame(master=self, fg_color='white', border_width=0, corner_radius=0, width=700)
+        frame_graph = CTkFrame(master=self, fg_color='white', border_width=0, corner_radius=0, width=1200)
         frame_graph.pack(expand=True, fill='both')
 
         # Expense and date data (for example)
@@ -39,7 +39,7 @@ class GraphicFrame(CTkFrame):
 
         canvas = FigureCanvasTkAgg(fig, master=frame_graph)
         canvas.draw()
-        canvas.get_tk_widget().pack(expand=True, fill='both', side='right')
+        canvas.get_tk_widget().pack(expand=True, fill='both', side='right', padx=105, pady=10)
 
         label_title = ctk.CTkLabel(master=frame_graph, text='Bank Account Expenses', font=('helvetica', 16))
         label_title.pack(pady=12)
