@@ -10,7 +10,7 @@ class Dashboard(CTkFrame):
     
     def create_widgets(self):
         frame = CTkFrame(master=self, fg_color="azure3", corner_radius=0)
-        frame.pack(expand=True, fill='both', anchor=ctk.W)
+        frame.pack(expand=True, fill="y", side=ctk.RIGHT)
         
         home_button = CTkButton(master=frame, text="Home",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30, command=self.on_home_button_click,width=100)
         account_button = CTkButton(master=frame, text="Account",fg_color="white",hover_color="mediumpurple1",border_color="black",text_color="black",border_width=2,corner_radius=30, command=self.on_account_button_click,width=100)

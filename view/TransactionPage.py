@@ -11,7 +11,7 @@ class TrasactionPage(CTkFrame):
 
     def create_widgets(self):
         frame = CTkFrame(master=self, fg_color="mediumpurple1", width=700, corner_radius=0)
-        frame.pack(expand=False, side=ctk.TOP, fill=ctk.X)
+        frame.pack(expand=False, side=ctk.TOP, fill=ctk.X, pady=0)
 
         balance_sold = CTkLabel(master=frame, text=f'Available balance : {self.master.get_balance()} €', font=('helvetica', 30))
         balance_sold.pack(pady=12, padx=100)
@@ -40,13 +40,13 @@ class TrasactionPage(CTkFrame):
 
         button1.pack(pady=10, padx=50)
 
-        entry_name.pack(pady=10, padx=10,fill = ctk.X)
-        entry_description.pack(pady=10, padx=10,fill = ctk.X)
-        frame3.pack(pady=10, padx=10,fill = ctk.X)
-        label_category.pack(pady=10, padx=10, fill = ctk.X, side=ctk.LEFT)
-        combobox_category.pack(pady=10, padx=10, fill = ctk.X, side=ctk.LEFT)
-        entry_value.pack(pady=10, padx=10,fill = ctk.X)
-        entry_date.pack(pady=10, padx=10,fill = ctk.X)
+        entry_name.pack(pady=10, padx=200,fill = ctk.X)
+        entry_description.pack(pady=10, padx=200,fill = ctk.X)
+        frame3.pack(pady=10, padx=200,fill = ctk.X)
+        label_category.pack(pady=10, padx=100, fill = ctk.X, side=ctk.LEFT, anchor=ctk.W)
+        combobox_category.pack(pady=10, padx=100, fill = ctk.X, side=ctk.LEFT)
+        entry_value.pack(pady=10, padx=200,fill = ctk.X)
+        entry_date.pack(pady=10, padx=200,fill = ctk.X)
 
         # Getter methods for entry widgets
         self.entry_name = entry_name
