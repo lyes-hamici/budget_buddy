@@ -24,14 +24,14 @@ class Home(CTkFrame):
         
     def create_widgets(self):
         frame = CTkFrame(master=self, fg_color=self.bg_color, border_width=0, width=700)
-        frame.pack(expand=False, side=ctk.TOP,pady = 50)
+        frame.pack(expand=True, side=ctk.TOP, pady =10, fill="y", anchor="w")
 
 
         frame2 = CTkFrame(master=self,fg_color="azure3", border_width=0, width=7000)
         frame2.pack(expand=False, side=ctk.LEFT,pady = 15, padx = 10 )
 
         label_sold = ctk.CTkLabel(master=frame, text=f'Balance : {self.master.get_balance()} €', font=('helvetica', 64), text_color=self.fg_color)#Replace self.balance with a the output of a function for get the sold of the account
-        label_sold.pack(pady=12, padx=100)
+        label_sold.pack(pady=12, padx=230)
 
         for i in range(len(self.master.get_transaction_list()[0:3])):
             new_list = self.master.get_transaction_list()[i]
