@@ -53,6 +53,7 @@ class Transaction_repository:
         FROM transaction t
         INNER JOIN category c ON t.category_id = c.id
         WHERE t.user_id = %s
+        ORDER BY t.date ASC
         """
         response = self.db.query(query, (user_id,))
         return [Transaction(*row) for row in response]
