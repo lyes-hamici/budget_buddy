@@ -41,6 +41,8 @@ class Window(ctk.CTk):
         # Variables for the account page
         self.transaction_list = []
         self.id_transaction = None
+        self.sort_reverse = False
+        self.sort_type = None
         # Variables for the graphic page
         self.axis_x_graph_list = []
         self.axis_y_graph_list = []

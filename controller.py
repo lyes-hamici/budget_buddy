@@ -65,6 +65,23 @@ class Controller:
                 self.get_all_transactions()
                 self.view.update_account_page()
                 self.get_graph()
+                
+            if self.view.sort_type == "amount":
+                self.view.account.pack_forget()
+                if self.view.sort_reverse == True:
+                    self.get_all_transactions_by_amount(True)
+                else:
+                    self.get_all_transactions_by_amount()
+                self.view.update_account_page()
+            elif self.view.sort_type == "date":
+                self.view.account.pack_forget()
+                if self.view.sort_reverse == True:
+                    self.get_all_transactions_by_date(True)
+                else:
+                    self.get_all_transactions_by_date()
+                self.flush_variables()
+                self.view.update_account_page()
+                
             if self.view.search_request == True:
                 self.view.search_request = False
                 category = self.view.get_search_category()
@@ -245,6 +262,16 @@ class Controller:
         transaction_list = self.Transaction_repository.get_all_transactions_of_user(self.user.user_id)
         print ("transaction_list = ", transaction_list)
         self.set_transaction_list(transaction_list)
+        
+    def get_all_transactions_by_date(self, reverse = False):
+        transaction_list = self.Transaction_repository.get_all_transactions_sorted_by_date(self.user.user_id, reverse)
+        self.set_transaction_list(transaction_list)
+    
+    def get_all_transactions_by_amount(self, reverse = False):
+        transaction_list = self.Transaction_repository.get_all_transactions_sorted_by_amount(self.user.user_id, reverse)
+        self.set_transaction_list(transaction_list)
+    
+    
 
     def three_last_transaction(self):
         transaction_list = self.Transaction_repository.get_last_three_transactions(self.user.user_id)
