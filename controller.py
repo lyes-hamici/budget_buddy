@@ -24,27 +24,27 @@ class Controller:
 
     def observer(self):
         while self.thread_running:
-            print("all variables from observer")
-            print("old value display page = ", self.old_value_display_page)
-            print("value display page = ", self.view.value_display_page)
-            print("value name = ", self.view.value_name)
-            print("value firstname = ", self.view.value_firstname)
-            print("value mail = ", self.view.value_mail)
-            print("value mail confirm = ", self.view.value_mail_confirm)
-            print("value password = ", self.view.value_password)
-            print("value password confirm = ", self.view.value_password_confirm)
-            print("value remember me = ", self.view.value_remember_me)
-            print("balance = ", self.view.balance)
-            print("overdraft = ", self.view.overdraft)
-            print("asking for creation = ", self.view.asking_for_creation)
-            print("add transaction = ", self.view.add_transaction)
-            print("transaction list = ", self.view.transaction_list)
-            print("axis x graph list = ", self.view.axis_x_graph_list)
-            print("axis y graph list = ", self.view.axis_y_graph_list)
-            print("logout request = ", self.view.logout_request)
-            print("id transaction = ", self.view.id_transaction)
-            print("transaction list = ", self.view.transaction_list)
-            print("transaction list = ", self.view.transaction_list)
+            # print("all variables from observer")
+            # print("old value display page = ", self.old_value_display_page)
+            # print("value display page = ", self.view.value_display_page)
+            # print("value name = ", self.view.value_name)
+            # print("value firstname = ", self.view.value_firstname)
+            # print("value mail = ", self.view.value_mail)
+            # print("value mail confirm = ", self.view.value_mail_confirm)
+            # print("value password = ", self.view.value_password)
+            # print("value password confirm = ", self.view.value_password_confirm)
+            # print("value remember me = ", self.view.value_remember_me)
+            # print("balance = ", self.view.balance)
+            # print("overdraft = ", self.view.overdraft)
+            # print("asking for creation = ", self.view.asking_for_creation)
+            # print("add transaction = ", self.view.add_transaction)
+            # print("transaction list = ", self.view.transaction_list)
+            # print("axis x graph list = ", self.view.axis_x_graph_list)
+            # print("axis y graph list = ", self.view.axis_y_graph_list)
+            # print("logout request = ", self.view.logout_request)
+            # print("id transaction = ", self.view.id_transaction)
+            # print("transaction list = ", self.view.transaction_list)
+            # print("transaction list = ", self.view.transaction_list)
 
 
             if self.view.logout_request == True:
@@ -65,6 +65,12 @@ class Controller:
                 self.get_all_transactions()
                 self.view.update_account_page()
                 self.get_graph()
+            if self.view.search_request == True:
+                self.view.search_request = False
+                category = self.view.get_search_category()
+                date = self.view.get_search_date()
+                self.search_transaction(category, date)
+                
             if self.view.add_transaction == True:
                 self.add_transaction(   self.view.transaction.get_entry_name_text(),
                                         self.view.transaction.get_entry_description_text(),
@@ -153,6 +159,11 @@ class Controller:
                 self.view.display_transaction_page()
                 self.set_old_value_display_page(6)
                 self.view.set_value_display_page(0)
+            
+            if self.view.value_display_page == 7:
+                self.view.display_search_page()
+                self.set_old_value_display_page(7)
+                self.view.set_value_display_page(0)
 
 
     def forget_display(self):
@@ -174,6 +185,9 @@ class Controller:
         elif self.old_value_display_page == 6:
             self.view.dashboard.pack_forget()
             self.view.transaction.pack_forget()
+        elif self.old_value_display_page == 7:
+            self.view.dashboard.pack_forget()
+            self.view.search_frame.pack_forget()
     
     #=================LOGIN METHODS=======================#
 
@@ -229,9 +243,7 @@ class Controller:
     def get_all_transactions(self):
         transaction_list = self.Transaction_repository.get_all_transactions_of_user(self.user.user_id)
         print ("transaction_list = ", transaction_list)
-        for transaction in transaction_list:
-            self.view.transaction_list.append(transaction.return_list())
-        self.view.transaction_list.reverse()
+        self.set_transaction_list(transaction_list)
 
     def three_last_transaction(self):
         transaction_list = self.Transaction_repository.get_last_three_transactions(self.user.user_id)
@@ -245,6 +257,21 @@ class Controller:
     def remove_transaction(self, id_transaction):
         print("remove transaction", id_transaction)
         self.Transaction_repository.delete_transaction(id_transaction)
+    
+    def set_transaction_list(self,transaction_list):
+        for transaction in transaction_list:
+            self.view.transaction_list.append(transaction.return_list())
+        self.view.transaction_list.reverse()
+    
+    def search_transaction(self, category, date):
+        if category == "None" or category == "" or category == " ":
+            category = None
+        if date == "" or date == " " or date == "None":
+            date = None
+        transaction_list = self.Transaction_repository.search_transaction(self.user.user_id, category, date)
+        print("transaction list = ", transaction_list)
+        self.set_transaction_list(transaction_list)
+        
 
     #=================GRAPHIC METHODS=======================#
     def get_graph(self):
