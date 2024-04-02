@@ -44,3 +44,16 @@ class Account(CTkFrame):
 
     def update_labels(self):
         self.transaction.create_labels(self.frame3, self.master.get_transaction_list())
+
+    def set_to_modify(self,id_transaction):
+        self.master.set_to_modify(id_transaction)
+
+    def get_to_modify(self):
+        return self.master.get_to_modify()
+    
+    def store_transaction_data(self,  name, description, category, value, date):
+        self.master.store_transaction(name, description, category, value, date)
+    
+    def set_validate_modification(self, value):
+        self.master.set_validate_modification(value)
+        print("validate_modification button clicked function passed")
