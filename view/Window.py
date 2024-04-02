@@ -6,6 +6,7 @@ from .Account import Account
 from .Dashboard import Dashboard
 from .GraphicFrame import GraphicFrame
 from .TransactionPage import TrasactionPage
+from .SearchPage import SearchPage
 
 class Window(ctk.CTk):
     '''
@@ -54,6 +55,11 @@ class Window(ctk.CTk):
         self.axis_y_graph_list = []
         # Variables for the dashboard
         self.logout_request = False
+        # Variables for the search page
+        self.research_list = []
+        self.search_request = False
+        self.search_category = ''
+        self.search_date = ''
 
         
         
@@ -114,6 +120,29 @@ class Window(ctk.CTk):
         '''
         return self.to_modify
     
+    def get_search_request(self):     
+        '''
+        This method returns the search request.
+        '''
+        return self.search_request
+    
+    def get_search_category(self):
+        '''
+        This method returns the search category.
+        '''
+        return self.search_category
+    
+    def get_search_date(self):
+        '''
+        This method returns the search date.
+        '''
+        return self.search_date
+    
+    def get_research_list(self):
+        '''
+        This method returns the research list.
+        '''
+        return self.research_list
     #=================SETTERS=======================#
     def set_value_mail(self, value):
         '''
@@ -177,7 +206,7 @@ class Window(ctk.CTk):
         This method sets the value of the logout request.
         '''
         self.logout_request = value
-
+    
     def set_to_modify(self, value):
         '''
         This method sets the value of the to modify.
@@ -210,6 +239,23 @@ class Window(ctk.CTk):
         self.transaction_category = category
         self.transaction_amount = value
         self.transaction_date = date
+    def set_search_request(self, value):
+        '''
+        This method sets the value of the search request.
+        '''
+        self.search_request = value
+    
+    def set_search_category(self, value):
+        '''
+        This method sets the value of the search category.
+        '''
+        self.search_category = value
+    
+    def set_search_date(self, value):
+        '''
+        This method sets the value of the search date.
+        '''
+        self.search_date = value
 
     #=================DISPLAY METHODS=======================#
 
@@ -280,7 +326,24 @@ class Window(ctk.CTk):
         This method displays the dashboard.
         '''
         self.dashboard = Dashboard(self)
-        self.dashboard.pack(side='left', expand= True, fill='both')
+        self.dashboard.pack(side='left', expand= False, fill='both')
+    
+    def display_search_page(self):
+        '''
+        this method displays the register page.
+        '''
+        self.display_dashboard()
+        self.search_frame = SearchPage(self)
+        self.search_frame.pack(fill='both', expand=True)
+    
+    def update_search_page(self):
+        '''
+        This method updates the search page.
+        '''
+        self.search_frame.pack_forget()
+        self.search_frame = SearchPage(self)
+        self.search_frame.pack(fill='both', expand=True)
+    
 
     def main(self):
         '''
