@@ -70,7 +70,8 @@ class Controller:
                 category = self.view.get_search_category()
                 date = self.view.get_search_date()
                 self.search_transaction(category, date)
-                
+                self.view.update_search_page()
+                self.view.research_list = []
             if self.view.add_transaction == True:
                 self.add_transaction(   self.view.transaction.get_entry_name_text(),
                                         self.view.transaction.get_entry_description_text(),
@@ -259,6 +260,7 @@ class Controller:
         self.Transaction_repository.delete_transaction(id_transaction)
     
     def set_transaction_list(self,transaction_list):
+        self.view.transaction_list = []
         for transaction in transaction_list:
             self.view.transaction_list.append(transaction.return_list())
         self.view.transaction_list.reverse()
@@ -269,9 +271,9 @@ class Controller:
         if date == "" or date == " " or date == "None":
             date = None
         transaction_list = self.Transaction_repository.search_transaction(self.user.user_id, category, date)
-        print("transaction list = ", transaction_list)
-        self.set_transaction_list(transaction_list)
-        
+        for transaction in transaction_list:
+            self.view.research_list.append(transaction.return_list())
+        self.view.research_list.reverse()           
 
     #=================GRAPHIC METHODS=======================#
     def get_graph(self):

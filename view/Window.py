@@ -47,6 +47,7 @@ class Window(ctk.CTk):
         # Variables for the dashboard
         self.logout_request = False
         # Variables for the search page
+        self.research_list = []
         self.search_request = False
         self.search_category = ''
         self.search_date = ''
@@ -121,6 +122,12 @@ class Window(ctk.CTk):
         This method returns the search date.
         '''
         return self.search_date
+    
+    def get_research_list(self):
+        '''
+        This method returns the research list.
+        '''
+        return self.research_list
     #=================SETTERS=======================#
     def set_value_mail(self, value):
         '''
@@ -202,7 +209,6 @@ class Window(ctk.CTk):
         This method sets the value of the search date.
         '''
         self.search_date = value
-
     
     #=================DISPLAY METHODS=======================#
 
@@ -280,6 +286,14 @@ class Window(ctk.CTk):
         this method displays the register page.
         '''
         self.display_dashboard()
+        self.search_frame = SearchPage(self)
+        self.search_frame.pack(fill='both', expand=True)
+    
+    def update_search_page(self):
+        '''
+        This method updates the search page.
+        '''
+        self.search_frame.pack_forget()
         self.search_frame = SearchPage(self)
         self.search_frame.pack(fill='both', expand=True)
     
