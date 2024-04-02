@@ -15,21 +15,12 @@ class Account(CTkFrame):
         frame2 = CTkFrame(master=self, fg_color="azure3",  width=700,corner_radius=0)
         frame2.pack(expand=False, side=ctk.TOP,fill = ctk.X)
 
-        button1 = ctk.CTkButton(master=frame2, text="1")
+        button1 = ctk.CTkButton(master=frame2, text="amount")
         button1.pack(side='left',padx=30, pady=5)
 
-        button2 = ctk.CTkButton(master=frame2, text="2")
+        button2 = ctk.CTkButton(master=frame2, text="date")
         button2.pack(side='left',padx=30, pady=5)
 
-
-        button3 = ctk.CTkButton(master=frame2, text="3")
-        button3.pack(side='left',padx=30, pady=5)
-
-        button4 = ctk.CTkButton(master=frame2, text="4")
-        button4.pack(side='left',padx=30, pady=5)
-
-        button5 = ctk.CTkButton(master=frame2, text="4")
-        button5.pack(side='left',padx=30, pady=5)
 
         self.frame3 = CTkScrollableFrame(master=self,fg_color="white",  width=7000,corner_radius=0)
         self.frame3.pack(expand=True, side=ctk.TOP,fill = 'both')
@@ -44,3 +35,13 @@ class Account(CTkFrame):
 
     def update_labels(self):
         self.transaction.create_labels(self.frame3, self.master.get_transaction_list())
+    
+    def on_amount_button_click(self):
+        self.master.sort_reverse = not self.master.sort_reverse
+        self.master.sort_type = "amount"
+        self.update_labels()
+    
+    def on_date_button_click(self):
+        self.master.sort_reverse = not self.master.sort_reverse
+        self.master.sort_type = "date"
+        self.update_labels()
