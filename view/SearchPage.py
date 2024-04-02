@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from customtkinter import CTkFrame , CTkButton , CTkEntry , CTkLabel
+from customtkinter import CTkFrame , CTkButton , CTkEntry , CTkLabel, CTkScrollableFrame
 import time
 
 class SearchPage(CTkFrame):
@@ -12,7 +12,7 @@ class SearchPage(CTkFrame):
 
     def create_widgets(self):
 
-        self.frame2 = CTkFrame(master=self, fg_color="white", width=700, corner_radius=0)
+        self.frame2 = CTkScrollableFrame(master=self, fg_color="white", width=700, corner_radius=0)
         self.frame2.pack(expand=True, side=ctk.TOP, fill='both')
 
         # Left side - Entry widgets
@@ -41,9 +41,7 @@ class SearchPage(CTkFrame):
         for i in range(len(self.master.get_research_list())):
             new_list = self.master.get_research_list()[i]
             self.display_frame(self.frame2, new_list)
-        
-        
-        
+    
 
 
     def display_frame(self, frame, i):
