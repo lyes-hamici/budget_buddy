@@ -370,9 +370,6 @@ class Window(ctk.CTk):
         This method reverses the list.
         '''
         self.transaction_list = sorted(self.transaction_list, key=lambda x: x[7], reverse=True)
-        print("transaction_list reversed")
-        print("=====================================")
-        print("=====================================")
     
 
     def main(self):

@@ -226,7 +226,6 @@ class Transaction_repository:
             params.append(category_id)
             
         if type is not None:
-            print("enter on type", type)
             query += " AND type = %s"
             params.append(type)
         
