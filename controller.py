@@ -302,10 +302,10 @@ class Controller:
     def search_transaction(self, category, date, type):
         if category == "None" or category == "" or category == " " or category == "Category":
             category = None
-        if date == "" or date == " " or date == "None":
+        if date == "" or date == " " or date == "None" or date == "Date":
             date = None
         if type == "" or type == " " or type == "None" or type == "Type":
-            date = None
+            type = None
         elif type == "Income":
             type = 1
         elif type == "Expense":

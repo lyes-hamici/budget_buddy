@@ -226,15 +226,16 @@ class Transaction_repository:
             query += " AND category_id = %s"
             params.append(category_id)
             
+        if type is not None:
+            print("enter on type", type)
+            query += " AND type = %s"
+            params.append(type)
+        
         if date is not None:
             print("enter on date", date)
             query += " AND date LIKE %s"
             params.append(date  + '%')
-        
-        if type is not None:
-            query += " AND type = %s"
-            params.append(type)
-        
+            
         response = self.db.query(query, params)
         return [Transaction(*row) for row in response]
     #=================LOGIC - OPERATIONS=======================#
