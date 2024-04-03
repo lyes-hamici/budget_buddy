@@ -23,6 +23,7 @@ class Controller:
         
 
     def observer(self):
+        """This method is the observer of the application. It is the main loop of the application. It is responsible for the communication between the view and the model."""
         while self.thread_running:
             
             if self.view.logout_request == True:
@@ -119,62 +120,62 @@ class Controller:
         self.view.set_overdraft(self.user.overdraft)
         
     def change_display(self):
-            if self.view.value_display_page == 1:
-
-                if self.view.asking_for_creation:
-                    if self.check_user_creation():
-                        self.view.displayLoginPage()
-                        self.set_old_value_display_page(1)
-                        self.view.set_value_display_page(0)
-                        self.view.asking_for_creation = False
-                    else:
-                        self.view.displayRegisterPage()
-                        self.set_old_value_display_page(2)
-                        self.view.set_value_display_page(0)
-                        self.view.asking_for_creation = False
-                else:
+        """This method is responsible for changing the display of the application. It is called when the value_display_page is different from 0. It is responsible for displaying the correct page according to the value_display_page."""
+        if self.view.value_display_page == 1:
+            if self.view.asking_for_creation:
+                if self.check_user_creation():
                     self.view.displayLoginPage()
                     self.set_old_value_display_page(1)
                     self.view.set_value_display_page(0)
-
-            if self.view.value_display_page == 2:
-                self.view.displayRegisterPage()
-                self.set_old_value_display_page(2)
-                self.view.set_value_display_page(0)
-            if self.view.value_display_page == 3:
-                if self.login():
-                    if self.user is not None:  
-                        self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
-                        self.set_overdraft()
-                        self.get_all_transactions()
-                        self.get_graph()
-                    self.view.display_home_page()
-                    self.set_old_value_display_page(3)
-                    self.view.set_value_display_page(0)
+                    self.view.asking_for_creation = False
                 else:
-                    self.view.displayLoginPage()
-                    self.set_old_value_display_page(1)
+                    self.view.displayRegisterPage()
+                    self.set_old_value_display_page(2)
                     self.view.set_value_display_page(0)
-                    
-            if self.view.value_display_page == 4:
-                self.view.display_account_page()
-                self.set_old_value_display_page(4)
+                    self.view.asking_for_creation = False
+            else:
+                self.view.displayLoginPage()
+                self.set_old_value_display_page(1)
                 self.view.set_value_display_page(0)
 
-            if self.view.value_display_page == 5:
-                self.view.display_graphic_page()
-                self.set_old_value_display_page(5)
+        if self.view.value_display_page == 2:
+            self.view.displayRegisterPage()
+            self.set_old_value_display_page(2)
+            self.view.set_value_display_page(0)
+        if self.view.value_display_page == 3:
+            if self.login():
+                if self.user is not None:  
+                    self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
+                    self.set_overdraft()
+                    self.get_all_transactions()
+                    self.get_graph()
+                self.view.display_home_page()
+                self.set_old_value_display_page(3)
                 self.view.set_value_display_page(0)
+            else:
+                self.view.displayLoginPage()
+                self.set_old_value_display_page(1)
+                self.view.set_value_display_page(0)
+                
+        if self.view.value_display_page == 4:
+            self.view.display_account_page()
+            self.set_old_value_display_page(4)
+            self.view.set_value_display_page(0)
 
-            if self.view.value_display_page == 6:
-                self.view.display_transaction_page()
-                self.set_old_value_display_page(6)
-                self.view.set_value_display_page(0)
-            
-            if self.view.value_display_page == 7:
-                self.view.display_search_page()
-                self.set_old_value_display_page(7)
-                self.view.set_value_display_page(0)
+        if self.view.value_display_page == 5:
+            self.view.display_graphic_page()
+            self.set_old_value_display_page(5)
+            self.view.set_value_display_page(0)
+
+        if self.view.value_display_page == 6:
+            self.view.display_transaction_page()
+            self.set_old_value_display_page(6)
+            self.view.set_value_display_page(0)
+        
+        if self.view.value_display_page == 7:
+            self.view.display_search_page()
+            self.set_old_value_display_page(7)
+            self.view.set_value_display_page(0)
 
 
     def forget_display(self):
@@ -236,6 +237,7 @@ class Controller:
         self.view.mainloop()
 
     def stop_thread(self):
+        """This method stops the observer thread."""
         self.thread_running = False
         self.thread.join()
 
@@ -273,6 +275,12 @@ class Controller:
         self.view.transaction_list.reverse()
     
     def search_transaction(self, category, date, type):
+        """
+        This method is responsible for searching a transaction in the database. 
+        It is called when the user clicks on the search button. 
+        It calls the search_transaction method from the Transaction_repository class. 
+        It then updates the research_list attribute of the view.
+        """
         if category == "None" or category == "" or category == " " or category == "Category":
             category = None
         if date == "" or date == " " or date == "None" or date == "Date":

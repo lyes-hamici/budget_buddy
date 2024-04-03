@@ -5,10 +5,8 @@ class Graph:
         self.user = user
         self.transaction_repository = transaction_repository
     
-    def draw_graph(self, balance_list, date_list):
-        pass
-    
     def get_30_days_balance_list(self):
+        """Returns the balance of the user for the last 30 days."""
         balance_list = []
         for i in range(30):
             date = datetime.now() - timedelta(days=i)
@@ -18,6 +16,7 @@ class Graph:
         return balance_list
     
     def get_list_dates(self):
+        """Returns a list of the last 30 days."""
         date_list = []
         for i in range(30):
             date = datetime.now() - timedelta(days=i)

@@ -33,6 +33,7 @@ def verify_password_is_strong(password):
     return True
 
 def is_valid_registration(email, password):
+    """Returns True if the email and password are valid, False otherwise."""
     return verify_is_email(email) and verify_password_is_strong(password)
 
         
