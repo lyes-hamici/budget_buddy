@@ -15,10 +15,10 @@ class Account(CTkFrame):
         frame2 = CTkFrame(master=self, fg_color="azure3",  width=700,corner_radius=0)
         frame2.pack(expand=False, side=ctk.TOP,fill = ctk.X)
 
-        button1 = ctk.CTkButton(master=frame2, text="amount")
+        button1 = ctk.CTkButton(master=frame2, text="amount", command=self.on_amount_button_click)
         button1.pack(side='left',padx=30, pady=5)
 
-        button2 = ctk.CTkButton(master=frame2, text="date")
+        button2 = ctk.CTkButton(master=frame2, text="date", command=self.on_date_button_click)
         button2.pack(side='left',padx=30, pady=5)
 
 
