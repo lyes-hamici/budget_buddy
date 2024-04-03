@@ -42,7 +42,7 @@ class Window(ctk.CTk):
         self.transaction_list = []
         self.id_transaction = None
         self.sort_reverse = False
-        self.sort_type = None
+        self.sort_by_amount = False
         
         self.to_modify = None
         self.validate_modification = None
@@ -273,6 +273,12 @@ class Window(ctk.CTk):
         '''
         self.search_type = value
 
+    def set_sort_by_amount(self, value):
+        '''
+        This method sets the value of the sort by amount.
+        '''
+        self.sort_by_amount = value
+
     #=================DISPLAY METHODS=======================#
 
     def displayLoginPage(self):
@@ -359,6 +365,15 @@ class Window(ctk.CTk):
         self.search_frame.pack_forget()
         self.search_frame = SearchPage(self)
         self.search_frame.pack(fill='both', expand=True)
+
+    def reverse_list(self):
+        '''
+        This method reverses the list.
+        '''
+        self.transaction_list = sorted(self.transaction_list, key=lambda x: x[7], reverse=True)
+        print("transaction_list reversed")
+        print("=====================================")
+        print("=====================================")
     
 
     def main(self):
