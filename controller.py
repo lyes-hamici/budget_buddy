@@ -24,33 +24,21 @@ class Controller:
 
     def observer(self):
         while self.thread_running:
+            
             if self.view.logout_request == True:
-                print("logout request from observer")
-                print("old value display page = ", self.old_value_display_page)
                 self.user = None
                 self.view.logout_request = False
-                """self.view.displayLoginPage()"""
                 self.view.set_value_display_page(1)
-                """self.flush_variables()"""
-
+                
             if self.view.to_modify:
-                print("to modify from observer")
                 self.store_transaction_data()
                 self.view.account.pack_forget()
                 self.view.update_account_page()
-                print("to modify = ", self.view.to_modify)
                 id_transaction = self.view.to_modify
                 self.view.to_modify = None
+                
             if self.view.validate_modification == True:
                 self.store_new_transaction_data()
-                print("testing entry values from observer")
-                print(self.testing_entry_values()[0])
-                print(self.testing_entry_values()[1])
-                print(self.testing_entry_values()[2])
-                print(self.testing_entry_values()[3])
-                print(self.testing_entry_values()[4])
-                print("end testing entry values from observer")
-
                 self.Transaction_repository.update_transaction (
 
                     id_transaction,
@@ -63,7 +51,6 @@ class Controller:
 
                 )
                 self.view.set_value_display_page(4)
-                
                 self.view.validate_modification = None
             elif self.view.validate_modification == False:
                 self.view.set_value_display_page(4)
@@ -73,7 +60,6 @@ class Controller:
                 self.remove_transaction(self.view.id_transaction)
                 self.view.id_transaction = None
                 self.get_all_transactions()
-                """self.view.account.update_labels()"""
                 self.flush_variables()
                 self.view.account.pack_forget()
                 self.get_all_transactions()
@@ -104,6 +90,7 @@ class Controller:
                 self.search_transaction(category, date, type)
                 self.view.update_search_page()
                 self.view.research_list = []
+                
             if self.view.add_transaction == True:
                 self.add_transaction(   
                                         self.view.transaction.get_entry_name_text(),
@@ -121,17 +108,11 @@ class Controller:
                 if self.user is not None:
                     self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
                     self.get_all_transactions()
-                    print(" from view transaction list = ", self.view.transaction_list)
                     self.get_graph()
-                print("test for logout before forget display")
                 self.forget_display()
                 self.change_display()
             time.sleep(0.1)
-            """if self.user is not None:  
-                self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
-                self.get_all_transactions()
-                print("transaction list = ", self.view.transaction_list)"""
-    
+        
     def set_overdraft(self):
         if self.user.overdraft != self.User_repository.get_overdraft(self.user.user_id):
             self.user.overdraft = self.User_repository.get_overdraft(self.user.user_id)
@@ -142,7 +123,6 @@ class Controller:
 
                 if self.view.asking_for_creation:
                     if self.check_user_creation():
-                        print("user created")
                         self.view.displayLoginPage()
                         self.set_old_value_display_page(1)
                         self.view.set_value_display_page(0)
@@ -167,14 +147,10 @@ class Controller:
                         self.view.set_balance(self.Transaction_repository.calculate_balance(self.user.user_id))
                         self.set_overdraft()
                         self.get_all_transactions()
-                        print(" from view transaction list = ", self.view.transaction_list)
                         self.get_graph()
                     self.view.display_home_page()
                     self.set_old_value_display_page(3)
                     self.view.set_value_display_page(0)
-                    print("entry values from login page")
-                    print("value_name = ", self.view.value_mail)
-                    print("value_password = ", self.view.value_password)
                 else:
                     self.view.displayLoginPage()
                     self.set_old_value_display_page(1)
@@ -208,7 +184,6 @@ class Controller:
         elif self.old_value_display_page == 2:
             self.view.forgetRegisterPage()
         elif self.old_value_display_page == 3:
-            print("forget display home page")
             self.view.home.pack_forget()
             self.view.dashboard.pack_forget()
         elif self.old_value_display_page == 4:
@@ -227,7 +202,6 @@ class Controller:
     #=================LOGIN METHODS=======================#
 
     def get_entry_values_from_login_page(self):
-        print("tes methods entry values from login page")
         self.view.value_mail = self.view.login_frame.user_entry.get()
         self.view.value_password = self.view.login_frame.user_pass.get()
 
@@ -238,14 +212,6 @@ class Controller:
             return True
         else:
             return False
-        
-        """if self.User_repository.verify_if_exist(self.view.value_mail):
-            if self.User_repository.verify_if_correct(self.view.value_mail, self.view.value_password):
-                self.user = self.User_repository.get_user(self.view.value_mail)
-                return True
-            else:
-                print("wrong password")
-                return False"""
 
     #=================REGISTER METHODS=======================#
     def get_entry_values_from_register_page(self):
@@ -259,7 +225,6 @@ class Controller:
     def check_user_creation(self):
         self.get_entry_values_from_register_page()
         if self.view.value_password == self.view.value_password_confirm and self.view.value_mail == self.view.value_mail_confirm:
-            print("test input values passed")
             if self.User_repository.create_user(self.view.value_name, self.view.value_firstname, self.view.value_mail, self.view.value_password):
                 return True
             else:
@@ -277,7 +242,6 @@ class Controller:
     #=================TRANSACTION METHODS=======================#
     def get_all_transactions(self):
         transaction_list = self.Transaction_repository.get_all_transactions_of_user(self.user.user_id)
-        print ("transaction_list = ", transaction_list)
         self.set_transaction_list(transaction_list)
         
     def get_all_transactions_by_date(self, reverse = False):
@@ -300,7 +264,6 @@ class Controller:
         self.Transaction_repository.create_transaction(self.user.user_id, name, description, amount, category, date)
 
     def remove_transaction(self, id_transaction):
-        print("remove transaction", id_transaction)
         self.Transaction_repository.delete_transaction(id_transaction)
     
     def set_transaction_list(self,transaction_list):
@@ -336,11 +299,6 @@ class Controller:
             "date": self.view.transaction_date,
             "category": self.view.transaction_category
         }
-        print("default values")
-        for key in self.default:
-            print("key = ", key, "value = ", self.default[key])
-
-        print("end default values")
 
     def store_new_transaction_data(self):
         self.new = {
@@ -350,17 +308,9 @@ class Controller:
             "date": self.view.transaction_date,
             "category": self.view.transaction_category
         }
-        for key in self.new:
-            print("key = ", key, "value = ", self.new[key])
 
     def testing_entry_values(self):
-        print("testing entry values")
-        print(self.default)
-        print(self.new)
-
         for key in self.new:
-            print("key = ", key, "value = ", self.new[key])
-            print(type(self.new[key]))
             if self.new[key] == "" or self.new[key] == " ":
                 self.new[key] = self.default[key]
         
@@ -386,7 +336,3 @@ class Controller:
         self.view.transaction_list = []
         self.view.axis_x_graph_list = []
         self.view.axis_y_graph_list = []    
-        
-# transaction_list = self.Transaction_repository.get_all_transactions_of_user(1)
-# for transaction in transaction_list:
-#     self.view.transaction_list.append(transaction.return_list())

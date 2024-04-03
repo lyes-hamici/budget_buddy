@@ -90,8 +90,6 @@ class SearchPage(CTkFrame):
         return self.entry_type.get()
 
     def on_search_button_click(self):
-        print("CLICKED")
-        # Implement the search functionality here
         self.master.set_search_category(self.get_entry_category_text())
         self.master.set_search_date(self.get_entry_date_text())
         self.master.set_search_type(self.get_entry_type())

@@ -57,4 +57,3 @@ class Account(CTkFrame):
     
     def set_validate_modification(self, value):
         self.master.set_validate_modification(value)
-        print("validate_modification button clicked function passed")

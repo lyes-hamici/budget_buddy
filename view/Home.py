@@ -35,12 +35,10 @@ class Home(CTkFrame):
 
         for i in range(len(self.master.get_transaction_list()[0:3])):
             new_list = self.master.get_transaction_list()[i]
-            print(new_list)
             self.display_frame(frame2, new_list)
 
 
     def display_frame(self, frame, i):
-        print("test display frame", i)
         frame_date = CTkFrame(master=frame, fg_color="transparent", bg_color="transparent")
         frame_date.pack(pady=2, fill=ctk.X)
 

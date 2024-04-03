@@ -17,7 +17,6 @@ class Db:
                 password="root",
                 database="budget"
             )
-            print("Connected to the database.")
             return conn
         except mysql.connector.Error as e:
             print(f"Connection to the database error : {e}")
@@ -54,7 +53,6 @@ class Db:
                     cursor.execute(query)
                 self.conn.commit()
                 cursor.close()
-                print("SQL request executed successfully.")
             except mysql.connector.Error as e:
                 print(f"Error in the execution : {e}")
     

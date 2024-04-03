@@ -231,7 +231,6 @@ class Window(ctk.CTk):
             value : [bool] - The value to validate.
         '''
         self.validate_modification = value
-        print("validate_modification set to True")
 
     def store_transaction(self, name, description, category, value, date):
         '''

@@ -14,12 +14,9 @@ class TransactionFrame(CTkFrame):
         '''
         for i in range(len(transaction_list)):
             new_list = transaction_list[i]
-            print(new_list)
-            # print(transaction_list[str(i)])
             frame.after(200 * i, self.display_frame,frame, new_list)
             
     def display_frame(self, frame, i):
-        print("test display frame", i)
         frame_date = CTkFrame(master=frame, fg_color="transparent", bg_color="transparent")
         frame_date.pack(pady=2, fill=ctk.X)
 
@@ -125,7 +122,6 @@ class TransactionFrame(CTkFrame):
                                            self.input_date.get()
                                            )
         self.master.set_validate_modification(True)
-        print("validate_modif button clicked")
 
     def back_modif(self):
         '''

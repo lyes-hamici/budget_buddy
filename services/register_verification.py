@@ -12,7 +12,6 @@ def verify_is_email(email):
         return False
     if email.count(".") < 1:
         return False
-    print("email is valid")
     return True
 
 def verify_password_is_strong(password):
@@ -31,7 +30,6 @@ def verify_password_is_strong(password):
         return False
     if not re.search("[!@#$%^&*(),.?\":{}|<>]", password):
         return False
-    print("password is strong")
     return True
 
 def is_valid_registration(email, password):

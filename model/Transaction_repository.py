@@ -221,13 +221,11 @@ class Transaction_repository:
         params = [user_id]
         
         if category_name is not None:
-            print("enter on category", category_name)
             category_id = self.get_category_id(category_name)
             query += " AND category_id = %s"
             params.append(category_id)
             
         if date is not None:
-            print("enter on date", date)
             query += " AND date LIKE %s"
             params.append(date  + '%')
         
@@ -284,9 +282,3 @@ class Transaction_repository:
         result = self.db.query(query, (user_id,))
         response = result[0][0]
         return response
-    
-if __name__ == "__main__":
-    from services import Db
-    db = Db()
-    tr = Transaction_repository(db)
-    print(tr.get_all_transactions_of_user(1))
