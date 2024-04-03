@@ -100,7 +100,8 @@ class Controller:
                 self.view.search_request = False
                 category = self.view.get_search_category()
                 date = self.view.get_search_date()
-                self.search_transaction(category, date)
+                type = self.view.get_search_type()
+                self.search_transaction(category, date, type)
                 self.view.update_search_page()
                 self.view.research_list = []
             if self.view.add_transaction == True:
@@ -308,12 +309,18 @@ class Controller:
             self.view.transaction_list.append(transaction.return_list())
         self.view.transaction_list.reverse()
     
-    def search_transaction(self, category, date):
-        if category == "None" or category == "" or category == " ":
+    def search_transaction(self, category, date, type):
+        if category == "None" or category == "" or category == " " or category == "Category":
             category = None
         if date == "" or date == " " or date == "None":
             date = None
-        transaction_list = self.Transaction_repository.search_transaction(self.user.user_id, category, date)
+        if type == "" or type == " " or type == "None" or type == "Type":
+            date = None
+        elif type == "Income":
+            type = 1
+        elif type == "Expense":
+            type = 0
+        transaction_list = self.Transaction_repository.search_transaction(self.user.user_id, category, date, type)
         for transaction in transaction_list:
             self.view.research_list.append(transaction.return_list())
         self.view.research_list.reverse()           

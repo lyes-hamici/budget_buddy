@@ -211,7 +211,7 @@ class Transaction_repository:
         result = self.db.query(query, (category_name,))
         return result[0][0] if result else None
     
-    def search_transaction(self, user_id, category_name = None, date = None):
+    def search_transaction(self, user_id, category_name = None, date = None, type = None):
         """
         Retrieves all transactions of a specific category and date from the database.
         Params: user_id: The ID of the user, category_name: The name of the category, date: The date of the transactions
@@ -230,6 +230,10 @@ class Transaction_repository:
             print("enter on date", date)
             query += " AND date LIKE %s"
             params.append(date  + '%')
+        
+        if type is not None:
+            query += " AND type = %s"
+            params.append(type)
         
         response = self.db.query(query, params)
         return [Transaction(*row) for row in response]

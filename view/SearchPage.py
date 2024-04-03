@@ -20,7 +20,10 @@ class SearchPage(CTkFrame):
         
         combobox_category = ctk.CTkComboBox(master=self.frame2, values=["Food", "Health", "Leisure", "Transport", "Lodging", "Tax", "Daily expenses", "Salary", "Other"],
                                             command="""combobox_callback""")
-        combobox_category.set("None")
+        combobox_category.set("Category")
+        
+        combobox_type = ctk.CTkComboBox(master=self.frame2, values=["Expense", "Income"], command="""combobox_callback""")
+        combobox_type.set("Type")
 
         entry_date = CTkEntry(master=self.frame2, fg_color="white", width=20,placeholder_text="Date",placeholder_text_color="black",text_color="black")
         
@@ -29,6 +32,7 @@ class SearchPage(CTkFrame):
 
         label_category.pack(pady=10, padx=10, fill = ctk.X)
         combobox_category.pack(pady=10, padx=10, fill = ctk.X)
+        combobox_type.pack(pady=10, padx=10, fill = ctk.X)
         entry_date.pack(pady=10, padx=10,fill = ctk.X)
         search_button.pack(pady=10, padx=50)
         
@@ -37,6 +41,7 @@ class SearchPage(CTkFrame):
         # Getter methods for entry widgets
         self.entry_category = combobox_category
         self.entry_date = entry_date
+        self.entry_type = combobox_type
         
         for i in range(len(self.master.get_research_list())):
             new_list = self.master.get_research_list()[i]
@@ -80,12 +85,16 @@ class SearchPage(CTkFrame):
     
     def get_entry_date_text(self):
         return self.entry_date.get()
+    
+    def get_entry_type(self):
+        return self.entry_type.get()
 
     def on_search_button_click(self):
         print("CLICKED")
         # Implement the search functionality here
         self.master.set_search_category(self.get_entry_category_text())
         self.master.set_search_date(self.get_entry_date_text())
+        self.master.set_search_type(self.get_entry_type())
         self.master.set_search_request(True)
         
         

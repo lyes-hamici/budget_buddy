@@ -63,6 +63,7 @@ class Window(ctk.CTk):
         self.search_request = False
         self.search_category = ''
         self.search_date = ''
+        self.search_type = ''
 
         
         
@@ -146,6 +147,12 @@ class Window(ctk.CTk):
         This method returns the research list.
         '''
         return self.research_list
+    
+    def get_search_type(self):
+        '''
+        This method returns the research list.
+        '''
+        return self.search_type
     #=================SETTERS=======================#
     def set_value_mail(self, value):
         '''
@@ -259,6 +266,12 @@ class Window(ctk.CTk):
         This method sets the value of the search date.
         '''
         self.search_date = value
+    
+    def set_search_type(self, value):
+        '''
+        This method sets the value of the search type.
+        '''
+        self.search_type = value
 
     #=================DISPLAY METHODS=======================#
 
