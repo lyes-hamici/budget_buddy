@@ -37,14 +37,17 @@ class Account(CTkFrame):
         self.transaction.create_labels(self.frame3, self.master.get_transaction_list())
     
     def on_amount_button_click(self):
-        self.master.sort_reverse = not self.master.sort_reverse
+        self.master.set_sort_by_amount(True)
+        """self.master.sort_reverse = not self.master.sort_reverse
         self.master.sort_type = "amount"
-        self.update_labels()
+        self.update_labels()"""
     
     def on_date_button_click(self):
-        self.master.sort_reverse = not self.master.sort_reverse
-        self.master.sort_type = "date"
-        self.update_labels()
+
+        self.master.reverse_list()
+        self.pack_forget()
+        self.master.update_account_page()
+       
 
     def set_to_modify(self,id_transaction):
         self.master.set_to_modify(id_transaction)
