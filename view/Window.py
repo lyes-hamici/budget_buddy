@@ -43,6 +43,16 @@ class Window(ctk.CTk):
         self.id_transaction = None
         self.sort_reverse = False
         self.sort_type = None
+        
+        self.to_modify = None
+        self.validate_modification = None
+
+        self.transaction_name = ""
+        self.transaction_description = ""
+        self.transaction_amount = ""
+        self.transaction_date = ""
+        self.transaction_type = ""
+        self.transaction_category = ""
         # Variables for the graphic page
         self.axis_x_graph_list = []
         self.axis_y_graph_list = []
@@ -106,6 +116,12 @@ class Window(ctk.CTk):
         This method returns the overdraft.
         '''
         return self.overdraft
+    
+    def get_to_modify(self):
+        '''
+        This method returns the to modify.
+        '''
+        return self.to_modify
     
     def get_search_request(self):     
         '''
@@ -194,6 +210,38 @@ class Window(ctk.CTk):
         '''
         self.logout_request = value
     
+    def set_to_modify(self, value):
+        '''
+        This method sets the value of the to modify.
+        '''
+        self.to_modify = value
+
+    def set_validate_modification(self, value):
+        '''
+        This method validates the modification.
+
+        args:
+            value : [bool] - The value to validate.
+        '''
+        self.validate_modification = value
+        print("validate_modification set to True")
+
+    def store_transaction(self, name, description, category, value, date):
+        '''
+        This method stores the transaction.
+
+        args:
+            name : [str] - The name of the transaction.
+            description : [str] - The description of the transaction.
+            category : [str] - The category of the transaction.
+            value : [float] - The value of the transaction.
+            date : [str] - The date of the transaction.
+        '''
+        self.transaction_name = name
+        self.transaction_description = description
+        self.transaction_category = category
+        self.transaction_amount = value
+        self.transaction_date = date
     def set_search_request(self, value):
         '''
         This method sets the value of the search request.
@@ -211,7 +259,7 @@ class Window(ctk.CTk):
         This method sets the value of the search date.
         '''
         self.search_date = value
-    
+
     #=================DISPLAY METHODS=======================#
 
     def displayLoginPage(self):

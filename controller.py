@@ -24,29 +24,6 @@ class Controller:
 
     def observer(self):
         while self.thread_running:
-            # print("all variables from observer")
-            # print("old value display page = ", self.old_value_display_page)
-            # print("value display page = ", self.view.value_display_page)
-            # print("value name = ", self.view.value_name)
-            # print("value firstname = ", self.view.value_firstname)
-            # print("value mail = ", self.view.value_mail)
-            # print("value mail confirm = ", self.view.value_mail_confirm)
-            # print("value password = ", self.view.value_password)
-            # print("value password confirm = ", self.view.value_password_confirm)
-            # print("value remember me = ", self.view.value_remember_me)
-            # print("balance = ", self.view.balance)
-            # print("overdraft = ", self.view.overdraft)
-            # print("asking for creation = ", self.view.asking_for_creation)
-            # print("add transaction = ", self.view.add_transaction)
-            # print("transaction list = ", self.view.transaction_list)
-            # print("axis x graph list = ", self.view.axis_x_graph_list)
-            # print("axis y graph list = ", self.view.axis_y_graph_list)
-            # print("logout request = ", self.view.logout_request)
-            # print("id transaction = ", self.view.id_transaction)
-            # print("transaction list = ", self.view.transaction_list)
-            # print("transaction list = ", self.view.transaction_list)
-
-
             if self.view.logout_request == True:
                 print("logout request from observer")
                 print("old value display page = ", self.old_value_display_page)
@@ -55,6 +32,43 @@ class Controller:
                 """self.view.displayLoginPage()"""
                 self.view.set_value_display_page(1)
                 """self.flush_variables()"""
+
+            if self.view.to_modify:
+                print("to modify from observer")
+                self.store_transaction_data()
+                self.view.account.pack_forget()
+                self.view.update_account_page()
+                print("to modify = ", self.view.to_modify)
+                id_transaction = self.view.to_modify
+                self.view.to_modify = None
+            if self.view.validate_modification == True:
+                self.store_new_transaction_data()
+                print("testing entry values from observer")
+                print(self.testing_entry_values()[0])
+                print(self.testing_entry_values()[1])
+                print(self.testing_entry_values()[2])
+                print(self.testing_entry_values()[3])
+                print(self.testing_entry_values()[4])
+                print("end testing entry values from observer")
+
+                self.Transaction_repository.update_transaction (
+
+                    id_transaction,
+                    self.user.user_id,
+                    self.testing_entry_values()[0],
+                    self.testing_entry_values()[1],
+                    self.testing_entry_values()[2],
+                    self.testing_entry_values()[3],
+                    self.testing_entry_values()[4]
+
+                )
+                self.view.set_value_display_page(4)
+                
+                self.view.validate_modification = None
+            elif self.view.validate_modification == False:
+                self.view.set_value_display_page(4)
+                self.view.validate_modification = None
+
             if self.view.id_transaction:
                 self.remove_transaction(self.view.id_transaction)
                 self.view.id_transaction = None
@@ -90,7 +104,8 @@ class Controller:
                 self.view.update_search_page()
                 self.view.research_list = []
             if self.view.add_transaction == True:
-                self.add_transaction(   self.view.transaction.get_entry_name_text(),
+                self.add_transaction(   
+                                        self.view.transaction.get_entry_name_text(),
                                         self.view.transaction.get_entry_description_text(),
                                         self.view.transaction.get_entry_value_text(), 
                                         self.view.transaction.get_entry_category_text(), 
@@ -99,6 +114,7 @@ class Controller:
                 self.view.add_transaction = False
                 self.get_all_transactions()
                 self.get_graph()
+
             if self.view.value_display_page != 0:
                 self.flush_variables()
                 if self.user is not None:
@@ -301,6 +317,47 @@ class Controller:
         for transaction in transaction_list:
             self.view.research_list.append(transaction.return_list())
         self.view.research_list.reverse()           
+
+    def modify_transaction(self, id_transaction, name, description, amount, category, date):
+        self.Transaction_repository.update_transaction(id_transaction, name, description, amount, category, date)
+
+    def store_transaction_data(self):
+        self.default = {
+            "name": self.view.transaction_name,
+            "description": self.view.transaction_description,
+            "amount": self.view.transaction_amount,
+            "date": self.view.transaction_date,
+            "category": self.view.transaction_category
+        }
+        print("default values")
+        for key in self.default:
+            print("key = ", key, "value = ", self.default[key])
+
+        print("end default values")
+
+    def store_new_transaction_data(self):
+        self.new = {
+            "name": self.view.transaction_name,
+            "description": self.view.transaction_description,
+            "amount": self.view.transaction_amount,
+            "date": self.view.transaction_date,
+            "category": self.view.transaction_category
+        }
+        for key in self.new:
+            print("key = ", key, "value = ", self.new[key])
+
+    def testing_entry_values(self):
+        print("testing entry values")
+        print(self.default)
+        print(self.new)
+
+        for key in self.new:
+            print("key = ", key, "value = ", self.new[key])
+            print(type(self.new[key]))
+            if self.new[key] == "" or self.new[key] == " ":
+                self.new[key] = self.default[key]
+        
+        return self.new["name"], self.new["description"], self.new["amount"], self.new["category"], self.new["date"]
 
     #=================GRAPHIC METHODS=======================#
     def get_graph(self):

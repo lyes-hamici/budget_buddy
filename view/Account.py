@@ -45,3 +45,16 @@ class Account(CTkFrame):
         self.master.sort_reverse = not self.master.sort_reverse
         self.master.sort_type = "date"
         self.update_labels()
+
+    def set_to_modify(self,id_transaction):
+        self.master.set_to_modify(id_transaction)
+
+    def get_to_modify(self):
+        return self.master.get_to_modify()
+    
+    def store_transaction_data(self,  name, description, category, value, date):
+        self.master.store_transaction(name, description, category, value, date)
+    
+    def set_validate_modification(self, value):
+        self.master.set_validate_modification(value)
+        print("validate_modification button clicked function passed")
